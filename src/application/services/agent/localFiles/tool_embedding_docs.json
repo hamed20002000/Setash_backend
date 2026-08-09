@@ -1,0 +1,42 @@
+[
+  {
+    "tool_name": "create_role",
+    "embedding_text": "Sisteme yeni bir rol ekleme işlemidir. Yeni bir kullanıcı rolü, yetki rolü veya erişim rolü oluşturmak ve tanımlamak için kullanılır. Yeni rol oluşturma, rol ekleme, rol tanımlama ve rol kaydetme isteklerini ifade eder."
+  },
+  {
+    "tool_name": "update_role",
+    "embedding_text": "Sistemde kayıtlı bir rolün bilgilerini değiştirme işlemidir. Mevcut rolün adını değiştirmek, rolü yeniden adlandırmak veya rol bilgilerini güncellemek için kullanılır. Rol adı değiştirme ve mevcut rol üzerinde düzenleme yapma isteklerini ifade eder."
+  },
+  {
+    "tool_name": "delete_role",
+    "embedding_text": "Sistemde kayıtlı bir rolü kaldırma işlemidir. Bir rolü silmek, sistemden kaldırmak veya rol kaydını tamamen kaldırmak için kullanılır. Rol silme ve rol kaldırma isteklerini ifade eder."
+  },
+  {
+    "tool_name": "assign_role_operations",
+    "embedding_text": "Bir role işlem ve yetki atama işlemidir. Bir rolün kullanabileceği işlemleri belirlemek, role izin vermek, role işlem yetkisi eklemek veya rolün yetkilerini düzenlemek için kullanılır. Belirli işlemleri bir role verme veya role tüm işlemleri atama isteklerini ifade eder."
+  },
+  {
+    "tool_name": "update_role_record_status",
+    "embedding_text": "Bir rolün aktiflik durumunu değiştirme işlemidir. Bir rolü aktif etmek, etkinleştirmek, yeniden kullanıma açmak, pasif yapmak, devre dışı bırakmak veya kullanıma kapatmak için kullanılır. Rolün aktif veya pasif durumunu değiştirme isteklerini ifade eder."
+  },
+  {
+    "tool_name": "create_user",
+    "embedding_text": "Sisteme yeni bir kullanıcı hesabı ekleme işlemidir. Yeni kullanıcı veya personel hesabı oluşturmak, kullanıcı kaydı açmak ve yeni bir hesap tanımlamak için kullanılır. Yeni kullanıcı oluşturma, kullanıcı ekleme, hesap açma ve kullanıcı kaydetme isteklerini ifade eder."
+  },
+  {
+    "tool_name": "update_user",
+    "embedding_text": "Sistemde kayıtlı bir kullanıcının bilgilerini değiştirme işlemidir. Kullanıcı adını değiştirmek, kullanıcı bilgilerini düzenlemek, profil bilgilerini güncellemek veya mevcut kullanıcı bilgileri üzerinde değişiklik yapmak için kullanılır. Kullanıcı bilgilerini güncelleme ve kullanıcı hesabını düzenleme isteklerini ifade eder."
+  },
+  {
+    "tool_name": "delete_user",
+    "embedding_text": "Sistemde kayıtlı bir kullanıcı hesabını kaldırma işlemidir. Kullanıcıyı silmek, hesabı sistemden kaldırmak veya kullanıcı kaydını tamamen kaldırmak için kullanılır. Kullanıcı silme ve kullanıcı hesabını kaldırma isteklerini ifade eder."
+  },
+  {
+    "tool_name": "update_user_record_status",
+    "embedding_text": "Bir kullanıcı hesabının aktiflik durumunu değiştirme işlemidir. Kullanıcı hesabını aktif etmek, etkinleştirmek, yeniden kullanıma açmak, pasif yapmak, devre dışı bırakmak veya erişimini kapatmak için kullanılır. Kullanıcı hesabının aktif veya pasif durumunu değiştirme isteklerini ifade eder."
+  },
+  {
+    "tool_name": "change-user-password",
+    "embedding_text": "Bir kullanıcının mevcut şifresini değiştirme işlemidir. Kullanıcının mevcut parolasını doğruladıktan sonra yeni bir parola belirlemek için kullanılır. Kullanıcının şifresini değiştirme, parolasını değiştirme, mevcut şifresini yenileme, yeni şifre belirleme veya hesap parolasını güncelleme isteklerini ifade eder. Bu işlem kullanıcı adı, profil bilgileri veya diğer kullanıcı bilgilerini değiştirmek için kullanılmaz."
+  }
+]

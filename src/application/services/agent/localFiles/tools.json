@@ -1,0 +1,227 @@
+{
+    "tools": [
+        {
+            "name": "create_role",
+            "description": "Yeni bir rol oluşturur. Sisteme yeni yetki veya erişim rolü eklemek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Yalnızca rol adını döndür. Rol adını çevreleyen kelimeleri ekleme. Çıktı sadece rol adından oluşmalıdır. Örnekler: 'Vekil rolünü oluştur' → 'Vekil', 'Muhasebe rolünü sil' → 'Muhasebe', 'Admin rolünü aktif et' → 'Admin'.Oluşturulacak rolün adı. Kullanıcının yazdığı değeri aynen al. Çeviri yapma, değiştirme veya yorumlama."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "update_role",
+            "description": "Mevcut rol bilgilerini günceller. Rol adını değiştirmek veya rol bilgilerini düzenlemek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Mevcut rol adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "newname": {
+                        "type": "string",
+                        "description": "Yeni rol adı. Kullanıcının yazdığı değeri aynen al."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "delete_role",
+            "description": "Mevcut bir rolü sistemden siler.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Silinecek rol adı. Kullanıcının yazdığı değeri aynen al."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "assign_role_operations",
+            "description": "Bir role işlem ve yetki atar.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "role_Name": {
+                        "type": "string",
+                        "description": "Yetki verilecek rol adı."
+                    },
+                    "operation_names": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Role atanacak işlem veya yetki isimleri."
+                    }
+                },
+                "required": [
+                    "role_Name",
+                    "operation_names"
+                ]
+            }
+        },
+        {
+            "name": "update_role_record_status",
+            "description": "Bir rolün aktif veya pasif durumunu değiştirir.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Rol adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "recordStatus": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Rol durumu. Aktif için 0, pasif için 1."
+                    }
+                },
+                "required": [
+                    "name",
+                    "recordStatus"
+                ]
+            }
+        },
+        {
+            "name": "create_user",
+            "description": "Yeni kullanıcı hesabı oluşturur.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Yeni kullanıcının adı veya kullanıcı adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Kullanıcı şifresi."
+                    },
+                    "roleNames": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Kullanıcıya atanacak roller."
+                    },
+                    "imageSrc": {
+                        "type": "string",
+                        "description": "Kullanıcı profil resmi adresi."
+                    }
+                },
+                "required": [
+                    "username",
+                    "password"
+                ]
+            }
+        },
+        {
+            "name": "update_user",
+            "description": "Mevcut kullanıcı bilgilerini günceller. Kullanıcı adı veya profil bilgilerini değiştirmek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Mevcut kullanıcı adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "newusername": {
+                        "type": "string",
+                        "description": "Yeni kullanıcı adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "imageSrc": {
+                        "type": "string",
+                        "description": "Yeni profil resmi adresi."
+                    }
+                },
+                "required": [
+                    "username"
+                ]
+            }
+        },
+        {
+            "name": "delete_user",
+            "description": "Mevcut kullanıcı hesabını sistemden siler.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Silinecek kullanıcı adı. Kullanıcının yazdığı değeri aynen al."
+                    }
+                },
+                "required": [
+                    "username"
+                ]
+            }
+        },
+        {
+            "name": "update_user_record_status",
+            "description": "Bir kullanıcı hesabının aktif veya pasif durumunu değiştirir.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "recordStatus": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Kullanıcı durumu. Aktif için 0, pasif için 1."
+                    }
+                },
+                "required": [
+                    "username",
+                    "recordStatus"
+                ]
+            }
+        },
+        {
+            "name": "change-user-password",
+            "description": "Mevcut kullanıcının şifresini değiştirmek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Şifresi değiştirilecek mevcut kullanıcının kullanıcı adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "currentPassword": {
+                        "type": "string",
+                        "description": "Kullanıcının mevcut şifresi. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "newPassword": {
+                        "type": "string",
+                        "description": "Kullanıcının belirlediği yeni şifre. Kullanıcının yazdığı değeri aynen al."
+                    }
+                },
+                "required": [
+                    "username",
+                    "currentPassword",
+                    "newPassword"
+                ]
+            }
+        }
+    ]
+}

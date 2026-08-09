@@ -1,0 +1,25 @@
+import { Injectable } from "@nestjs/common";
+import { ToolHandlerType } from "./types";
+
+@Injectable()
+export class ToolRegister {
+
+    private toolHandlers = new Map<string, (params: any,) => Promise<any>>();
+
+    public register(item: ToolHandlerType) {
+        this.toolHandlers.set(
+            item.functionName,
+            item.handler
+        );
+    }
+
+    public async execute(name: string, param: any) {
+        const handler = this.toolHandlers.get(name);
+
+        if (!handler) {
+            throw new Error(`Tool ${name} not found`);
+        }
+
+        return handler(param);
+    }
+}

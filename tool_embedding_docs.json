@@ -1,0 +1,18 @@
+[
+  {
+    "tool_name": "create_role",
+    "document": "**Tool Name**: create_role  \n**Description**: Create a new role for users, defining permissions or access levels within a system.  \n**When to use**: Use this tool to establish user roles during system setup, access control configuration, or when defining permissions for different user categories.  \n**Business keywords**: user roles, access control, permission management, security settings, role creation  \n**Examples**:  \n1. \"Create a 'Admin' role with full system access.\"  \n2. \"Define a 'Guest' role with limited view-only permissions.\"  \n3. \"Set up a 'Editor' role for content management tasks.\""
+  },
+  {
+    "tool_name": " update_role",
+    "document": "**Tool Name**: update_role  \n**Description**: Update existing role.  \n**When to use**: When you need to rename a role or update its status.  \n**Business keywords**: role management, status update, role renaming, system administration  \n**Examples**:  \n1. Rename a role from \"Admin\" to \"Super Admin\" and mark it as active (recordStatus=1).  \n2. Update the status of a role named \"Guest\" to inactive (recordStatus=0)."
+  },
+  {
+    "tool_name": "delete_role",
+    "document": "Tool name: delete_role  \nDescription: Delete existing role  \nWhen to use: Use this tool to remove a role that is no longer needed or was created by mistake.  \nBusiness keywords: role management, access control, permissions, security, role deletion  \nExamples:  \n1. Delete a redundant role named \"Guest\" that is no longer required.  \n2. Remove an incorrectly assigned role \"Admin\" from a user's access settings."
+  },
+  {
+    "tool_name": "assign_role_operations",
+    "document": "**Tool Name**: Assign Role Operations  \n\n**Description**: Assign specific operations to a role within an application, allowing granular control over permissions. The tool supports assigning individual operations or all available operations to a role.  \n\n**When to Use**:  \n- When defining role-based access control (RBAC) for an application.  \n- When granting specific permissions (e.g., \"create_user\", \"delete_data\") to a role.  \n- When assigning all operations to a role (e.g., for an admin role).  \n\n**Business Keywords**:  \n- Role management  \n- Operation assignment  \n- IAM (Identity and Access Management)  \n- Access control  \n- Permission management  \n- Role-based access  \n\n**Examples**:  \n1. Assign \"create_user\" and \"edit_user\" operations to the \"Admin\" role.  \n2. Assign all operations to the \"SuperAdmin\" role by specifying \"all\" in operation_names.  \n3. Grant \"read_data\" and \"export_data\" permissions to the \"Analyst\" role."
+  }
+]

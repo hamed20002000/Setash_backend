@@ -332,10 +332,10 @@ ${prompt}`;
                 `;
             ;
             const resp = await axios.post(
-                "http://localhost:11434/api/embed", {
-                model: "bge-m3:latest",
-                input: document
-            }
+                        "http://localhost:11434/api/embed", {
+                        model: "bge-m3:latest",
+                        input: document
+                    }
             )
 
             await this.dataSource.query(

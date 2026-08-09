@@ -25,7 +25,7 @@
   },
   {
     "tool_name": "update_user",
-    "embedding_text": "Sistemde kayıtlı bir kullanıcının bilgilerini değiştirme işlemidir. Kullanıcı adını değiştirmek, kullanıcı bilgilerini düzenlemek, profil bilgilerini güncellemek veya mevcut kullanıcı bilgileri üzerinde değişiklik yapmak için kullanılır. Kullanıcı bilgilerini güncelleme ve kullanıcı hesabını düzenleme isteklerini ifade eder."
+    "embedding_text": "Sistemde kayıtlı bir kullanıcının bilgilerini değiştirme veya güncelleme işlemidir. Kullanıcı adını değiştirmek, kullanıcı bilgilerini düzenlemek, profil bilgilerini güncellemek veya mevcut kullanıcı bilgileri üzerinde değişiklik yapmak için kullanılır. Kullanıcı bilgilerini güncelleme, kullanıcı hesabını düzenleme, kullanıcı adını değiştirme veya profil bilgilerini değiştirme isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, rollerini değiştirmek veya hesabını aktif ya da pasif duruma getirmek için kullanılmaz."
   },
   {
     "tool_name": "delete_user",
@@ -38,5 +38,9 @@
   {
     "tool_name": "change-user-password",
     "embedding_text": "Bir kullanıcının mevcut şifresini değiştirme işlemidir. Kullanıcının mevcut parolasını doğruladıktan sonra yeni bir parola belirlemek için kullanılır. Kullanıcının şifresini değiştirme, parolasını değiştirme, mevcut şifresini yenileme, yeni şifre belirleme veya hesap parolasını güncelleme isteklerini ifade eder. Bu işlem kullanıcı adı, profil bilgileri veya diğer kullanıcı bilgilerini değiştirmek için kullanılmaz."
+  },
+  {
+    "tool_name": "assign-user-roles",
+    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
   }
 ]

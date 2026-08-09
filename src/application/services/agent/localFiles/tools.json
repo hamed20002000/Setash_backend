@@ -222,6 +222,30 @@
                     "newPassword"
                 ]
             }
+        },
+        {
+            "name": "assign-user-roles",
+            "description": "Mevcut kullanıcıya bir veya birden fazla rol atamak için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "description": "Rol atanacak mevcut kullanıcının kullanıcı adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Kullanıcıya atanacak rollerin listesi. Kullanıcının belirttiği rol değerlerini aynen al."
+                    }
+                },
+                "required": [
+                    "username",
+                    "roles"
+                ]
+            }
         }
     ]
 }

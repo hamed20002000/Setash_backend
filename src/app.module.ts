@@ -112,7 +112,11 @@ import { ToolRegisterModule } from './application/services/agent/appModule/toolr
   imports: [
     ServeStaticModule.forRoot({
      rootPath: path.join(__dirname, '..', 'uploads'),
-      serveRoot: '/uploads',    }),
+      serveRoot: '/uploads',    },
+      {
+    rootPath: path.join(__dirname, '..', 'cdn'),
+    serveRoot: '/cdn',
+  }),
     MulterModule.registerAsync({
       useFactory: () => fileUploadOptions,
     }),

@@ -91,3 +91,22 @@ export type ToolHandlerType={
     handler:(params: any) => Promise<any>;
 }
 
+
+export type ContextInfo={
+    operation:string;
+    result:Record<string,string>;
+    parameters:Record<string,string>;
+    status:"success"|"fault"
+}
+
+export type RequestResult={
+      toolName:string;
+      continuePrompt:string;
+}
+export type FunctionCallResultType={
+    result:"error"|"success",
+    message:string,
+    continuePrompt: string | undefined,
+    toolName: string,
+    list:any[]
+}

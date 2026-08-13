@@ -19,17 +19,21 @@ import { Users } from 'src/domain/entities/Users';
 import { PasswordService } from '../helper/password.service';
 import { RoleNamesSpecification } from 'src/application/specifications/user/role-specifications';
 import { UserDto } from 'src/presentation/dtos/user/user.dto';
+import { ContextManager } from '../agent/contextManager';
+import messages from '../../services/agent/messages.json'
+import { RequestResult } from '../agent/types';
 
 
 @Injectable()
 export class RoleService extends BaseService<Roles> implements OnModuleInit {
   constructor(
-
+    
     private readonly roleRepository: RoleRepository,
     private readonly roleMenuOperationsRepository: RoleMenuOperationRepository,
     private readonly toolRtegister: ToolRegister,
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
+    private readonly history:ContextManager
   
 
 
@@ -41,10 +45,18 @@ export class RoleService extends BaseService<Roles> implements OnModuleInit {
   onModuleInit() {
     this.toolRtegister.register({
       functionName: "create_role",
-      handler: async (param: any): Promise<void> => {
+      handler: async (param: any): Promise<RequestResult> => {
 
       if(param.name==undefined||param.name.replaceAll(" ","")==""){
-          throw new HttpException("The role name is required!", HttpStatus.BAD_REQUEST);
+          this.history.addNewHistory({
+            status:"fault",
+            operation:"create_role",
+            parameters:this.history.getParams(param),
+            result:{
+              errorMessage:messages.role.namerequired
+            }
+          },param.req.user.username)
+          throw new HttpException(messages.role.namerequired, HttpStatus.BAD_REQUEST);
         }
 
 
@@ -60,7 +72,15 @@ export class RoleService extends BaseService<Roles> implements OnModuleInit {
         var specification = new RoleSpecification(param.name);
         var checkRole = await this.getWithSpecification(specification);
         if (checkRole.length > 0) {
-          throw new HttpException("The role already exist", HttpStatus.BAD_REQUEST);
+           this.history.addNewHistory({
+            status:"fault",
+            operation:"create_role",
+            parameters:this.history.getParams(param),
+            result:{
+              errorMessage:messages.role.roleexist
+            }
+          },param.req.user.username)
+          throw new HttpException(messages.role.roleexist, HttpStatus.BAD_REQUEST);
         }
         var role = GenericMapper.toEntity(Roles, roleDto);
         role.createAt = new Date();
@@ -69,15 +89,31 @@ export class RoleService extends BaseService<Roles> implements OnModuleInit {
 
         var createRole = await this.add(role);
         var result = GenericMapper.toDto(RoleListDto, createRole, { excludeExtraneousValues: true });
-        return;
+        this.history.addNewHistory({
+          status:"success",
+          operation:"create_role",
+          parameters:this.history.getParams(param),
+          result:{
+            "id":createRole.id.toString(),
+            "name":createRole.name,
+            "createAt":role.createAt.toString(),
+            "recordStatus":role.recordStatus.toString(),
+            
+          }
+        },param.req.user.username)
+
+        return {
+          continuePrompt:undefined,
+          toolName:"create_role"
+        }
       }
     })
 
     this.toolRtegister.register({
       functionName: "update_role",
-      handler: async (param: any): Promise<void> => {
+      handler: async (param: any): Promise<RequestResult> => {
            if(param.name==undefined||param.name.replaceAll(" ","")==""||param.newname==undefined||param.newname.replaceAll(" ","")==""){
-          throw new HttpException("The role name and newName is required!", HttpStatus.BAD_REQUEST);
+          throw new HttpException(messages.role.nameandnewNameisrequired, HttpStatus.BAD_REQUEST);
         }
         var roleDto = new UpdateRoleDto();
         roleDto.name = this.normalizingName(param.name);
@@ -90,24 +126,59 @@ export class RoleService extends BaseService<Roles> implements OnModuleInit {
         var specification = new RoleSpecification(roleDto.name);
         var checkRole = await this.getWithSpecification(specification);
         if (checkRole.length < 1) {
-          throw new HttpException("The role is not found!", HttpStatus.NOT_FOUND);
+           this.history.addNewHistory({
+            status:"fault",
+            operation:"update_role",
+            parameters:{
+              "name":param.name
+            },
+            result:{
+              errorMessage:messages.role.rolenotfound
+            }
+          },param.req.user.username)
+          throw new HttpException(messages.role.rolenotfound, HttpStatus.NOT_FOUND);
         }
         checkRole[0].name = roleDto.newname ?? checkRole[0].name;
         checkRole[0].recordStatus = roleDto.recordStatus ?? checkRole[0].recordStatus;
 
         var updateRole = await this.update(checkRole[0]);
         var result = GenericMapper.toDto(RoleListDto, updateRole, { excludeExtraneousValues: true });
-        return;
+         this.history.addNewHistory({
+          status:"success",
+          operation:"update_role",
+          parameters:this.history.getParams(param),
+          result:{
+            "id":updateRole.id.toString(),
+            "name":roleDto.name,
+            "newname":roleDto.newname,
+            "createAt":updateRole.createAt.toString(),
+            "recordStatus":updateRole.recordStatus.toString(),
+          }
+        },param.req.user.username)
+        
+           return {
+          continuePrompt:undefined,
+          toolName:"update_role"
+        }
+
       }
     })
 
 
     this.toolRtegister.register({
       functionName: "delete_role",
-      handler: async (param: any): Promise<boolean> => {
+      handler: async (param: any): Promise<RequestResult> => {
 
            if(param.name==undefined||param.name.replaceAll(" ","")==""){
-          throw new HttpException("The role name is required!", HttpStatus.BAD_REQUEST);
+             this.history.addNewHistory({
+            status:"fault",
+            operation:"delete_role",
+            parameters:this.history.getParams(param),
+            result:{
+              errorMessage:messages.role.namerequired
+            }
+          },param.req.user.username)
+          throw new HttpException(messages.role.namerequired, HttpStatus.BAD_REQUEST);
         }
 
 
@@ -118,34 +189,79 @@ export class RoleService extends BaseService<Roles> implements OnModuleInit {
         var specification = new RoleSpecification(roleDto.name);
         var checkRole = await this.getWithSpecification(specification);
         if (checkRole.length < 1) {
-          throw new HttpException("The role is not found!", HttpStatus.NOT_FOUND);
+          throw new HttpException(messages.role.rolenotfound, HttpStatus.NOT_FOUND);
         }
 
         var createRole = await this.delete(checkRole[0].id);
-        return true;
+        this.history.addNewHistory({
+          status:"success",
+          operation:"delete_role",
+          parameters:this.history.getParams(param),
+          result:{
+            "id":checkRole[0].id.toString(),
+            "name":roleDto.name,
+          }
+        },param.req.user.username)
+
+
+        return {
+          continuePrompt:undefined,
+          toolName:"delete_role"
+        };
       }
     })
 
     this.toolRtegister.register({
       functionName: "update_role_record_status",
-      handler: async (param: any): Promise<void> => {
+      handler: async (param: any): Promise<RequestResult> => {
         var roleDto = new UpdateRoleDto();
         roleDto.name = param.name;
         roleDto.recordStatus=param.recordStatus;
         
         if(roleDto.name==undefined||roleDto.name.replaceAll(" ","")==""){
-          throw new HttpException("The role name is required!", HttpStatus.BAD_REQUEST);
+            this.history.addNewHistory({
+            status:"fault",
+            operation:"update_role_record_status",
+            parameters:this.history.getParams(param),
+            result:{
+              errorMessage:messages.role.namerequired
+            }
+          },param.req.user.username)
+          throw new HttpException(messages.role.namerequired, HttpStatus.BAD_REQUEST);
         }
         var specification = new RoleSpecification(roleDto.name);
         var checkRole = await this.getWithSpecification(specification);
         if (checkRole.length < 1) {
-          throw new HttpException("The role is not found!", HttpStatus.NOT_FOUND);
+             this.history.addNewHistory({
+            status:"fault",
+            operation:"update_role_record_status",
+            parameters:this.history.getParams(param),
+            result:{
+              errorMessage:messages.role.rolenotfound
+            }
+          },param.req.user.username)
+
+          throw new HttpException(messages.role.rolenotfound, HttpStatus.NOT_FOUND);
         }
         checkRole[0].recordStatus = roleDto.recordStatus ?? checkRole[0].recordStatus;
 
         var updateRole = await this.update(checkRole[0]);
         var result = GenericMapper.toDto(RoleListDto, updateRole, { excludeExtraneousValues: true });
-        return;
+         this.history.addNewHistory({
+          status:"success",
+          operation:"update_role_record_status",
+          parameters:this.history.getParams(param),
+          result:{
+            "id":updateRole.id.toString(),
+            "name":roleDto.name,
+            "recordStatus":updateRole.recordStatus.toString(),
+          }
+        },param.req.user.username)
+        
+        return {
+          continuePrompt:undefined,
+          toolName:"update_role_record_status"
+        };
       }
     })
 

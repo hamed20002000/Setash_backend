@@ -1,0 +1,20 @@
+
+
+{
+
+    "role":{
+        "namerequired":"Rol adı zorunludur!",
+        "roleexist":"Bu rol zaten mevcut.",
+        "nameandnewNameisrequired":"Rol adı ve yeni ad zorunludur!",
+        "rolenotfound":"Rol bulunamadı."
+    },
+    "user":{
+        "usernamerequired":"Kullanıcı adı zorunludur.",
+        "passwordrequired":"Şifre gereklidir.",
+        "Theusenameexists":"Kullanıcı adı zaten mevcut.",
+        "Somerolesnotfound":"Bazı roller bulunamadı.",
+        "Usernotfound":"Kullanıcı bulunamadı!",
+        "passwordisincorrect":"Geçerli şifre yanlış!"
+    }
+
+}

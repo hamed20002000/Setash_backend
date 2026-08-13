@@ -16,6 +16,7 @@ import { extractRelations } from './extractRelations';
 import tools from 'src/application/services/agent/localFiles/tools.json';
 import { CondinateToolsTyes, ExtracteToolsType } from './types';
 import { ToolRegister } from './toolRegister';
+import { RequestResult } from './types';
 
 
 @Injectable()
@@ -27,21 +28,108 @@ export class AgentToolsService {
 
     }
 
-    async extractSelectedTool(prompt: string, condinateTools: string[]): Promise<string> {
+    async extractSelectedTool(prompt: string, condinateTools: string[],histoty:string): Promise<string> {
         const systemRules = `
-You are a tool selection agent.
+You are a tool selection and parameter extraction agent.
 
-Your tasks:
-1. Select exactly one function from the provided tools.
-2. Just return function name.
-3. Return valid JSON only.
+Analyze the current user prompt together with the conversation history and
+the available candidate tools and their schemas.
 
-Tool selection rules:
-- Choose the function that matches the user's intent.
-- Do not select multiple functions.
+Your task is to:
 
-Available tools:
-${condinateTools.join(", ")}
+1. Select exactly one tool that best matches the user's intended operation.
+2. Extract the parameters required by the selected tool.
+
+The conversation history is an important source of context for understanding
+the current request.
+
+Use your own reasoning to determine whether and how the history is relevant
+to the current request.
+
+The current request may depend on information established in previous
+interactions. When this happens, use the relevant information from the history
+to understand the user's intent, select the appropriate tool, and extract its
+parameters.
+
+Do not assume that the history is always relevant.
+Do not assume that the current prompt is always independent of the history.
+
+The current prompt and history should be interpreted together based on their
+meaning and context.
+
+Tool selection:
+
+- Select exactly one tool.
+- Choose the tool that best represents the user's intended operation.
+- Consider both the current prompt and relevant information from the history.
+- Do not select a tool merely because of lexical or keyword similarity.
+
+Parameter extraction:
+
+- Extract the parameters required by the selected tool.
+- Use information from the current prompt and, when relevant, the history.
+- Preserve entity values in their original language and writing system.
+- Never translate parameter values.
+- Never transliterate parameter values.
+- Never replace parameter values with synonyms.
+- Never invent parameter values.
+- Never correct spelling.
+- Never change the meaning of a parameter value.
+- Remove only surrounding grammatical or structural words that are not part
+  of the actual parameter value.
+
+If a value or entity required by the current request was established in a
+previous interaction, use the relevant information from the history.
+
+Do not treat unrelated information from the history as parameters for the
+current request.
+
+Database identifiers must never be generated, guessed, or fabricated.
+If an identifier is explicitly available in relevant context, preserve it
+exactly.
+
+Return valid JSON only.
+
+Output format:
+
+{
+  "function": "selected_tool_name",
+  "parameters": {
+    "parameterName": "value"
+  }
+}
+
+Do not return explanations, markdown, comments, or additional text.
+History-based parameter extraction:
+
+- When necessary, obtain parameter values from the conversation history.
+- The current prompt and the conversation history must be interpreted
+  together when extracting parameters.
+- A parameter does not have to be explicitly present in the current prompt.
+  If its value was established by a relevant previous operation, use that
+  value from the history.
+- Use history only when it provides information necessary to understand or
+  complete the current request.
+- Do not copy parameters from previous interactions unless they are relevant
+  to the current request.
+- When a parameter is obtained from the history, use its exact value as stored
+  in the history.
+- Never translate, transliterate, paraphrase, normalize, correct, or replace
+  a parameter value obtained from the history.
+- The history may provide entity values, identifiers, names, or other
+  parameter values required by the selected tool.
+- If the required parameter value exists in the relevant history, extract it
+  from there even when the current prompt does not explicitly contain the
+  value.
+- If the required parameter value cannot be determined from the current
+  prompt or relevant history, do not invent or guess it.
+
+
+
+
+Conversation history:
+${histoty.length==0?"empty":histoty}
+
 
 Tool schemas:
 ${JSON.stringify(
@@ -93,7 +181,7 @@ ${JSON.stringify(
 
     }
 
-    async extractTools(prompt: string, condinateTool: string): Promise<ExtracteToolsType> {
+    async extractTools(prompt: string, condinateTool: string,history:string): Promise<ExtracteToolsType> {
 
         var selectedTool;
         const systemRules = `
@@ -132,6 +220,70 @@ Examples of behavior:
 - "entity with grammatical changes" -> return the original entity without those changes
 
 Parameter values must not be translated or rewritten.
+History-based parameter extraction:
+
+- When necessary, obtain parameter values from the conversation history.
+- The current prompt and the conversation history must be interpreted
+  together when extracting parameters.
+- A parameter does not have to be explicitly present in the current prompt.
+  If its value was established by a relevant previous operation, use that
+  value from the history.
+- Use history only when it provides information necessary to understand or
+  complete the current request.
+- Do not copy parameters from previous interactions unless they are relevant
+  to the current request.
+- When a parameter is obtained from the history, use its exact value as stored
+  in the history.
+- Never translate, transliterate, paraphrase, normalize, correct, or replace
+  a parameter value obtained from the history.
+- The history may provide entity values, identifiers, names, or other
+  parameter values required by the selected tool.
+- If the required parameter value exists in the relevant history, extract it
+  from there even when the current prompt does not explicitly contain the
+  value.
+- If the required parameter value cannot be determined from the current
+  prompt or relevant history, do not invent or guess it.
+
+    History usage rules:
+
+The current user prompt is the primary source for determining the current
+operation and its explicitly provided parameters.
+
+Before using the history, determine whether the current prompt can be fully
+understood and its required parameters can be extracted without information
+from previous interactions.
+
+Use the history only when information from previous interactions is necessary
+to understand the meaning of the current prompt or to complete a required
+parameter that the current prompt depends on.
+
+Do not use the history when the current prompt independently specifies the
+operation and all required information.
+
+Do not use the history merely because the same entity, name, value, or type of
+operation appeared previously.
+
+Do not use the result or state of a previous operation to reinterpret the
+operation requested by the current prompt.
+
+If the current prompt expresses a new operation independently, treat it as a
+new operation even when an identical or similar operation exists in the
+history.
+
+If the current prompt is incomplete or semantically dependent on information
+established previously, use the relevant history to resolve that dependency.
+
+Only use the minimum amount of history necessary to resolve the current
+request.
+
+Ignore historical information that is not required for the current request.
+
+When history is used, use it to provide missing context or parameters, not to
+replace the intent expressed by the current prompt.
+
+
+Conversation history:
+${history.length==0?"empty":history}
 
 Available tools:
 ${condinateTool}
@@ -196,7 +348,7 @@ ${JSON.stringify(
     }
 
 
-    async executeTool(toolName: string, parameter: any, req: any): Promise<string> {
+    async executeTool(toolName: string, parameter: any, req: any): Promise<RequestResult> {
 
         const result = await this.toolRegister.execute(toolName, { ...parameter, req });
 

@@ -107,6 +107,7 @@ import { UserNotificationLists } from './domain/entities/UserNotificationLists';
 import { OllamaAssistantService } from './agent/ollama-assistant.service';
 import { AgentAssistantController } from './presentation/controllers/admin/agent-assistant.controller';
 import { ToolRegisterModule } from './application/services/agent/appModule/toolregister.module';
+import { ContextManagerModule } from './application/services/agent/appModule/contextManager.module';
 
 @Module({
   imports: [
@@ -175,7 +176,8 @@ import { ToolRegisterModule } from './application/services/agent/appModule/toolr
     NotificationsModule,
     EducationModule,
     ReportModule,
-    ToolRegisterModule
+    ToolRegisterModule,
+    ContextManagerModule
   ],
   controllers: [AgentAssistantController],
   providers: [OllamaAssistantService],

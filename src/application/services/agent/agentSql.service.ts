@@ -16,20 +16,19 @@ import { extractRelations } from './extractRelations';
 import tools from 'src/application/services/agent/localFiles/tools.json';
 import { CondinateToolsTyes } from './types';
 import { AgentToolsService } from './agentTools.service';
+import { ContextManager } from './contextManager';
+import { FunctionCallResultType } from './types';
 
 
-type FunctionCallResultType={
-    result:"error"|"success",
-    message:string,
-    list:any[]
-}
+
 
 
 @Injectable()
 export class AgentSqlService {
     constructor(
         @InjectDataSource() private readonly dataSource: DataSource,
-        private readonly agentToolsService: AgentToolsService
+        private readonly agentToolsService: AgentToolsService,
+        private readonly history:ContextManager
         
     ) {
 
@@ -360,7 +359,8 @@ ${prompt}`;
         const resp = await axios.post(
             "http://localhost:11434/api/embed", {
             model: "bge-m3:latest",
-            input: prompt
+            input:prompt,
+
         }
         )
 
@@ -384,13 +384,15 @@ ${prompt}`;
     async RunFunctionCalling(prompt:string,req:any,files: string[]):Promise<FunctionCallResultType>{
         try{
             const condinateToolsName=await this.getCondinateToolsForRunPrompt(prompt)
-            const selectedToolName=await this.agentToolsService.extractSelectedTool(prompt,condinateToolsName);
-            const selectedTool=await this.agentToolsService.extractTools(prompt,selectedToolName);
-            await this.agentToolsService.executeTool(selectedTool.functionName,{...selectedTool.parameters,files:files},req);
+            const selectedToolName=await this.agentToolsService.extractSelectedTool(prompt,condinateToolsName,this.history.getHistory(0,req.user.username) as string);
+            const selectedTool=await this.agentToolsService.extractTools(prompt,selectedToolName,this.history.getHistory(0,req.user.username) as string);
+            const toolResult=await this.agentToolsService.executeTool(selectedTool.functionName,{...selectedTool.parameters,files:files},req);
 
             return{
                 result:"success",
                 message:prompt,
+                continuePrompt:toolResult.continuePrompt,
+                toolName:toolResult.toolName,
                 list:[]
             }
 
@@ -401,6 +403,8 @@ ${prompt}`;
                     return{
                              result:"error",
                              message:error?.message||"İşlem gerçekleştirilirken hata oluştu.",
+                             continuePrompt:undefined,
+                             toolName:undefined,
                              list:[]
                     }
         }

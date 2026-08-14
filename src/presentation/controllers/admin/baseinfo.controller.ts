@@ -104,30 +104,30 @@ export class BaseinfoController {
         type: UploadFilesDto,
     })
     @UseInterceptors(
-        FileInterceptor('file',{
+        FileInterceptor('file', {
             storage: diskStorage({
-                destination:(req, file, callback) => {
+                destination: (req, file, callback) => {
 
-        const isImage = file.mimetype.startsWith('image/');
+                    const isImage = file.mimetype.startsWith('image/');
 
-        const folder = isImage
-          ? 'images'
-          : 'files';
+                    const folder = isImage
+                        ? 'images'
+                        : 'files';
 
-        const uploadPath = join(
-          process.cwd(),
-          'cdn',
-          folder,
-        );
+                    const uploadPath = join(
+                        process.cwd(),
+                        'cdn',
+                        folder,
+                    );
 
-        // اگر پوشه وجود نداشت، ایجادش کن
-        mkdirSync(uploadPath, {
-          recursive: true,
-        });
+                    // اگر پوشه وجود نداشت، ایجادش کن
+                    mkdirSync(uploadPath, {
+                        recursive: true,
+                    });
 
-        callback(null, uploadPath);
-      }, 
-                
+                    callback(null, uploadPath);
+                },
+
                 filename: (req, file, callback) => {
                     const originalName = file.originalname.replace(/\.[^/.]+$/, '');
                     const extension = extname(file.originalname);
@@ -170,12 +170,12 @@ export class BaseinfoController {
         const isImage = file.mimetype.startsWith('image/');
 
         const folder = isImage
-          ? 'images'
-          : 'files';
+            ? 'images'
+            : 'files';
 
         const uploadPath = join(
-          'cdn',
-          folder,
+            'cdn',
+            folder,
         );
         if (!file) {
             throw new BadRequestException('No file uploaded');
@@ -193,23 +193,28 @@ export class BaseinfoController {
     }
 
 
-  @Post("agent")
-  @UseGuards(JwtAuthGuard, AdminRolesGuard)
-  @UseInterceptors(FilesInterceptor("files", 10))
-  @ApiBearerAuth()
-    async agent(@Request() req, @Body("prompt") text:string,@Body("files") files: string[]): Promise<any> {
+    @Post("agent")
+    @UseGuards(JwtAuthGuard, AdminRolesGuard)
+    @UseInterceptors(FilesInterceptor("files", 10))
+    @ApiBearerAuth()
+    async agent(@Request() req, @Body("prompt") text: string, @Body("files") files: string[]): Promise<any> {
 
-         
-         const prompt =text?.trim() || 'nothink';
 
-         const sqlOrFunctionCall=await this.agentSqlService.FunctionCallingOrSqlSelection(prompt);
+        const prompt = text?.trim() || 'nothink';
 
-         switch(sqlOrFunctionCall){
+        const sqlOrFunctionCall = await this.agentSqlService.FunctionCallingOrSqlSelection(prompt);
+
+        switch (sqlOrFunctionCall) {
             case "functionCalling":
-               return this.agentSqlService.RunFunctionCalling(prompt,req,files)
+                 this.agentSqlService.RunFunctionCalling(prompt, req, files).catch(error => {
+                    console.error(error);
+                });
+                return {
+                     result: "started"
+                }
             case "sql":
-                break;    
-         }
+                break;
+        }
 
     }
 

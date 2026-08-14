@@ -1,0 +1,14 @@
+{
+    
+        "create_role":"rol oluşturma",
+        "update_role":"rolü güncelleme",
+        "delete_role":"rol silme",
+        "assign_role_operations":"operasyonlara rol atama",
+        "update_role_record_status":"rol durumunu güncelleme",
+        "create_user":"kullanıcı oluşturma",
+        "update_user":"kullanıcıyı güncelliyor",
+        "delete_user":"kullanıcıyı silme",
+        "update_user_record_status":"kullanıcı durumunu güncelleme",
+        "change-user-password":"kullanıcı şifresini değiştirme",
+         "assign-user-roles":"kullanıcı rollerini atama"
+}

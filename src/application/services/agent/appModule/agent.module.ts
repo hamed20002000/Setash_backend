@@ -3,6 +3,7 @@ import { AgentSqlService } from '../agentSql.service';
 import { AgentToolsService } from '../agentTools.service';
 import { ToolRegisterModule } from './toolregister.module';
 import { AgentController } from 'src/presentation/controllers/agent/agent.controller';
+import { AgentGateway } from '../agent.gateway';
 
 @Module({
   imports: [
@@ -11,10 +12,12 @@ import { AgentController } from 'src/presentation/controllers/agent/agent.contro
   providers: [
     AgentSqlService,
     AgentToolsService,
+    AgentGateway
   ],
   exports: [
     AgentSqlService,
     AgentToolsService,
+    AgentGateway
   ],
 
   controllers: [AgentController],

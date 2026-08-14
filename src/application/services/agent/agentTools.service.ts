@@ -28,108 +28,39 @@ export class AgentToolsService {
 
     }
 
-    async extractSelectedTool(prompt: string, condinateTools: string[],histoty:string): Promise<string> {
+    async extractSelectedTool(prompt: string, condinateTools: string[], histoty: string): Promise<string[]> {
         const systemRules = `
-You are a tool selection and parameter extraction agent.
+You are a tool selection agent.
 
-Analyze the current user prompt together with the conversation history and
-the available candidate tools and their schemas.
+Analyze the current user prompt together with the conversation history
+and the available candidate tools and their schemas.
 
 Your task is to:
 
-1. Select exactly one tool that best matches the user's intended operation.
-2. Extract the parameters required by the selected tool.
+1. Identify all distinct operations requested by the current user prompt.
+2. Select exactly one tool for each requested operation.
+3. Return all selected tools in the order they should be executed.
+4. Return valid JSON only.
 
-The conversation history is an important source of context for understanding
-the current request.
+Tool selection rules:
 
-Use your own reasoning to determine whether and how the history is relevant
-to the current request.
-
-The current request may depend on information established in previous
-interactions. When this happens, use the relevant information from the history
-to understand the user's intent, select the appropriate tool, and extract its
-parameters.
-
-Do not assume that the history is always relevant.
-Do not assume that the current prompt is always independent of the history.
-
-The current prompt and history should be interpreted together based on their
-meaning and context.
-
-Tool selection:
-
-- Select exactly one tool.
-- Choose the tool that best represents the user's intended operation.
-- Consider both the current prompt and relevant information from the history.
-- Do not select a tool merely because of lexical or keyword similarity.
-
-Parameter extraction:
-
-- Extract the parameters required by the selected tool.
-- Use information from the current prompt and, when relevant, the history.
-- Preserve entity values in their original language and writing system.
-- Never translate parameter values.
-- Never transliterate parameter values.
-- Never replace parameter values with synonyms.
-- Never invent parameter values.
-- Never correct spelling.
-- Never change the meaning of a parameter value.
-- Remove only surrounding grammatical or structural words that are not part
-  of the actual parameter value.
-
-If a value or entity required by the current request was established in a
-previous interaction, use the relevant information from the history.
-
-Do not treat unrelated information from the history as parameters for the
-current request.
-
-Database identifiers must never be generated, guessed, or fabricated.
-If an identifier is explicitly available in relevant context, preserve it
-exactly.
-
-Return valid JSON only.
-
-Output format:
-
-{
-  "function": "selected_tool_name",
-  "parameters": {
-    "parameterName": "value"
-  }
-}
-
-Do not return explanations, markdown, comments, or additional text.
-History-based parameter extraction:
-
-- When necessary, obtain parameter values from the conversation history.
-- The current prompt and the conversation history must be interpreted
-  together when extracting parameters.
-- A parameter does not have to be explicitly present in the current prompt.
-  If its value was established by a relevant previous operation, use that
-  value from the history.
-- Use history only when it provides information necessary to understand or
-  complete the current request.
-- Do not copy parameters from previous interactions unless they are relevant
-  to the current request.
-- When a parameter is obtained from the history, use its exact value as stored
-  in the history.
-- Never translate, transliterate, paraphrase, normalize, correct, or replace
-  a parameter value obtained from the history.
-- The history may provide entity values, identifiers, names, or other
-  parameter values required by the selected tool.
-- If the required parameter value exists in the relevant history, extract it
-  from there even when the current prompt does not explicitly contain the
-  value.
-- If the required parameter value cannot be determined from the current
-  prompt or relevant history, do not invent or guess it.
-
-
-
+- The current user prompt is the primary source for determining the requested operations.
+- Identify every distinct operation expressed in the current prompt.
+- Each distinct operation must be mapped to exactly one available tool.
+- Do not omit an operation requested by the user.
+- Do not create an operation that the user did not request.
+- Do not merge independent operations.
+- If the current prompt contains one operation, return one tool.
+- If the current prompt contains multiple operations, return all required tools.
+- Select tools according to semantic intent.
+- Do not select a tool merely because of keyword similarity.
+- Use conversation history only to understand the intent of the current request.
+- Do not extract or return parameters.
+- Do not use previous parameters to make tool selections unless they are
+  necessary to understand what operation the user is requesting.
 
 Conversation history:
-${histoty.length==0?"empty":histoty}
-
+${histoty.length === 0 ? "empty" : histoty}
 
 Tool schemas:
 ${JSON.stringify(
@@ -139,6 +70,18 @@ ${JSON.stringify(
                 }
             })
         )}
+
+Output format:
+
+{
+  "operations": [
+    {
+      "functionName": "tool_name"
+    }
+  ]
+}
+
+Return JSON only.
 `;
 
         const ollamareq: ChatRequest = {
@@ -157,14 +100,25 @@ ${JSON.stringify(
         const resp = await axios.post(
             "http://localhost:11434/api/chat",
             JSON.stringify({
-                ...ollamareq, format: {
+                ...ollamareq,
+
+                format: {
                     type: "object",
                     properties: {
-                        functionName: {
-                            type: "string"
+                        operations: {
+                            type: "array",
+                            items: {
+                                type: "object",
+                                properties: {
+                                    functionName: {
+                                        type: "string"
+                                    }
+                                },
+                                required: ["functionName"]
+                            }
                         }
                     },
-                    required: ["functionName"]
+                    required: ["operations"]
                 }
             }),
 
@@ -175,30 +129,44 @@ ${JSON.stringify(
             },
         );
 
-        return  JSON.parse(resp.data.message.content).functionName;
+        const result = JSON.parse(resp.data.message.content);
 
+        return result.operations.map(
+            (item: any) => item.functionName
+        );
 
 
     }
 
-    async extractTools(prompt: string, condinateTool: string,history:string): Promise<ExtracteToolsType> {
+    async extractTools(prompt: string, condinateTool: string, history: string): Promise<ExtracteToolsType> {
 
         var selectedTool;
         const systemRules = `
-You are a tool selection agent.
+You are a tool selection and parameter extraction agent.
+Analyze the current user prompt together with the conversation history and
+the provided candidate tools.
 
 Your tasks:
+
+
 1. Select exactly one function from the provided tools.
 2. Extract the required parameters for that function.
 3. Return valid JSON only.
 
+
+
+
 Tool selection rules:
+
+
 - Choose the function that matches the user's intent.
 - Do not select multiple functions.
 
 Parameter extraction rules:
 
-- Extract only the actual entity value required by the function.
+
+
+  - Extract only the actual entity value required by the function.
 - Remove surrounding words from the user's sentence.
 - Return the value as it should exist in the database.
 - Keep the original language and writing system of the entity.
@@ -283,7 +251,7 @@ replace the intent expressed by the current prompt.
 
 
 Conversation history:
-${history.length==0?"empty":history}
+${history.length == 0 ? "empty" : history}
 
 Available tools:
 ${condinateTool}
@@ -315,7 +283,8 @@ ${JSON.stringify(
         const resp = await axios.post(
             "http://localhost:11434/api/chat",
             JSON.stringify({
-                ...ollamareq, format: {
+                ...ollamareq,
+                format: {
                     type: "object",
                     properties: {
                         functionName: {
@@ -328,6 +297,7 @@ ${JSON.stringify(
                     },
                     required: ["functionName", "parameters", "confidence"]
                 }
+
             }),
 
             {
@@ -336,7 +306,7 @@ ${JSON.stringify(
                 },
             },
         );
-        const result: ExtracteToolsType = {
+             const result: ExtracteToolsType = {
             functionName: JSON.parse(resp.data.message.content).functionName,
             parameters: JSON.parse(resp.data.message.content).parameters,
             confidence: JSON.parse(resp.data.message.content).confidence

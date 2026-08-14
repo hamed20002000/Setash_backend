@@ -18,6 +18,8 @@ import { CondinateToolsTyes } from './types';
 import { AgentToolsService } from './agentTools.service';
 import { ContextManager } from './contextManager';
 import { FunctionCallResultType } from './types';
+import { AgentGateway } from './agent.gateway';
+import socketMapping from '../../services/agent/localFiles/socketMapping.json'
 
 
 
@@ -28,8 +30,9 @@ export class AgentSqlService {
     constructor(
         @InjectDataSource() private readonly dataSource: DataSource,
         private readonly agentToolsService: AgentToolsService,
-        private readonly history:ContextManager
-        
+        private readonly history: ContextManager,
+        private readonly agentGateway: AgentGateway
+
     ) {
 
     }
@@ -318,7 +321,7 @@ ${prompt}`;
             'utf8'
         )) as unknown as {
             tool_name: string;
-            embedding_text:string
+            embedding_text: string
         }[];
 
 
@@ -331,10 +334,10 @@ ${prompt}`;
                 `;
             ;
             const resp = await axios.post(
-                        "http://localhost:11434/api/embed", {
-                        model: "bge-m3:latest",
-                        input: document
-                    }
+                "http://localhost:11434/api/embed", {
+                model: "bge-m3:latest",
+                input: document
+            }
             )
 
             await this.dataSource.query(
@@ -359,13 +362,13 @@ ${prompt}`;
         const resp = await axios.post(
             "http://localhost:11434/api/embed", {
             model: "bge-m3:latest",
-            input:prompt,
+            input: prompt,
 
         }
         )
 
-        const queryResult:CondinateToolsTyes[]= await this.dataSource.query(
-                `
+        const queryResult: CondinateToolsTyes[] = await this.dataSource.query(
+            `
                SELECT
                 "ToolName",
                 "Embedding" <=> $1 AS distance
@@ -373,40 +376,62 @@ ${prompt}`;
                 ORDER BY "Embedding" <=> $1
                 LIMIT 5;
                 `,
-                [
-                    `[${resp.data.embeddings[0].join(",")}]`
-                ]
-            ) as CondinateToolsTyes[];
+            [
+                `[${resp.data.embeddings[0].join(",")}]`
+            ]
+        ) as CondinateToolsTyes[];
 
-                return queryResult.map((item,index)=>item.ToolName)
+        return queryResult.map((item, index) => item.ToolName)
 
     }
-    async RunFunctionCalling(prompt:string,req:any,files: string[]):Promise<FunctionCallResultType>{
-        try{
-            const condinateToolsName=await this.getCondinateToolsForRunPrompt(prompt)
-            const selectedToolName=await this.agentToolsService.extractSelectedTool(prompt,condinateToolsName,this.history.getHistory(0,req.user.username) as string);
-            const selectedTool=await this.agentToolsService.extractTools(prompt,selectedToolName,this.history.getHistory(0,req.user.username) as string);
-            const toolResult=await this.agentToolsService.executeTool(selectedTool.functionName,{...selectedTool.parameters,files:files},req);
+    async RunFunctionCalling(prompt: string, req: any, files: string[]): Promise<void> {
+        try {
+            const condinateToolsName = await this.getCondinateToolsForRunPrompt(prompt)
+            const selectedToolNames = await this.agentToolsService.extractSelectedTool(prompt, condinateToolsName, this.history.getHistory(0, req.user.username) as string);
+            for (const toolName of selectedToolNames) {
+                try {
 
-            return{
-                result:"success",
-                message:prompt,
-                continuePrompt:toolResult.continuePrompt,
-                toolName:toolResult.toolName,
-                list:[]
+                    this.agentGateway.sendCurrentTool(req.user.id, {
+                        currentOp: socketMapping[toolName]
+                    })
+
+                    const selectedTool = await this.agentToolsService.extractTools(prompt, toolName, this.history.getHistory(0, req.user.username) as string);
+                    const toolResult = await this.agentToolsService.executeTool(selectedTool.functionName, { ...selectedTool.parameters, files: files }, req);
+                    this.agentGateway.sendToolResult(req.user.id, {
+                        result: "success",
+                        message: prompt,
+                        continuePrompt: toolResult.continuePrompt,
+                        toolName: toolResult.toolName,
+                        list: []
+                    })
+                }
+                catch (error) {
+                    this.agentGateway.sendToolResult(req.user.id, {
+                        result: "error",
+                        message: error?.message || "İşlem gerçekleştirilirken hata oluştu.",
+                        continuePrompt: undefined,
+                        toolName: undefined,
+                        list: []
+                    })
+
+
+                }
+
+
             }
 
-        }
-        catch(error){
 
-            //throw new HttpException(error?.message||"İşlem gerçekleştirilirken hata oluştu.", HttpStatus.BAD_REQUEST);
-                    return{
-                             result:"error",
-                             message:error?.message||"İşlem gerçekleştirilirken hata oluştu.",
-                             continuePrompt:undefined,
-                             toolName:undefined,
-                             list:[]
-                    }
+
+        }
+        catch (error) {
+
+               this.agentGateway.sendToolResult(req.user.id, {
+                        result: "error",
+                        message:"Kritik hata, lütfen operatörle iletişime geçin.",
+                        continuePrompt: undefined,
+                        toolName: undefined,
+                        list: []
+                    })
         }
     }
 }

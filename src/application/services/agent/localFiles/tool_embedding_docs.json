@@ -43,21 +43,24 @@
     "tool_name": "assign-user-roles",
     "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
   },
-
-    {
+  {
     "tool_name": "create_category",
-    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
+    "embedding_text": "Kategori oluşturma işlemidir. Sisteme yeni bir kategori eklemek, kategori tanımlamak veya yeni bir kategori kaydetmek için kullanılır. Ana kategori veya mevcut bir kategorinin altında alt kategori oluşturma isteklerini ifade eder. Kategori adı ve isteğe bağlı olarak üst kategori belirtilerek yeni kategori oluşturulur. Bu işlem mevcut kategoriyi güncellemek, kategori silmek, kategoriyi aktif veya pasif yapmak ya da kullanıcıya rol atamak için kullanılmaz."
   },
-     {
+  {
     "tool_name": "update_category",
-    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
+    "embedding_text": "Mevcut bir kategoriyi güncelleme işlemidir. Bir kategorinin adını değiştirmek, kategori kodunu değiştirmek, kategoriyi başka bir üst kategoriye taşımak, üst kategorisini değiştirmek veya kategorinin aktif/pasif durumunu değiştirmek için kullanılır. Kategori bilgilerini düzenleme, mevcut kategoriyi yeniden adlandırma veya kategori yapısını değiştirme isteklerini ifade eder. Üst kategori değiştirildiğinde alt kategorilerin hiyerarşik derinliği de güncellenebilir. Bu işlem yeni kategori oluşturmak, kategori silmek veya kullanıcıya rol atamak için kullanılmaz."
   },
-       {
-    "tool_name": "deleteـcategory",
-    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
+  {
+    "tool_name": "delete_category",
+    "embedding_text": "Mevcut bir kategoriyi silme işlemidir. Bir kategoriyi sistemden kaldırmak, kategoriyi silmek veya artık kullanılmayan bir kategoriyi kaldırmak için kullanılır. Belirli bir kategorinin silinmesini veya kategori kaydının sistemden kaldırılmasını isteyen işlemleri ifade eder. Bu işlem yeni kategori oluşturmak, mevcut kategorinin adını veya kodunu değiştirmek, kategoriyi başka bir üst kategoriye taşımak ya da kategori durumunu aktif veya pasif olarak değiştirmek için kullanılmaz."
   },
-       {
+  {
     "tool_name": "update_category_record_status",
-    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
+    "embedding_text": "Mevcut bir kategorinin durumunu güncelleme işlemidir. Bir kategoriyi aktif etme, etkinleştirme, pasif yapma, devre dışı bırakma veya tekrar kullanıma açma işlemleri için kullanılır. Kategorinin kayıt durumunu aktif veya pasif olarak değiştirme isteklerini ifade eder. Bu işlem kategorinin adını değiştirmek, kodunu değiştirmek, üst kategorisini değiştirmek, yeni kategori oluşturmak veya kategori silmek için kullanılmaz."
+  },
+  {
+    "tool_name": "change_category_parent",
+    "embedding_text": "Bir kategorinin üst kategorisini değiştirme işlemidir. Mevcut bir kategoriyi başka bir üst kategoriye taşımak, kategoriyi farklı bir kategori altında konumlandırmak veya mevcut kategori hiyerarşisini değiştirmek için kullanılır. Bir kategorinin yeni üst kategorisini belirleme, kategori ağacındaki yerini değiştirme veya kategoriyi başka bir kategorinin altına taşıma isteklerini ifade eder. Bu işlem kategoriyi aktif veya pasif yapmak, kategori adını değiştirmek, kategori kodunu değiştirmek, yeni kategori oluşturmak veya kategori silmek için kullanılmaz."
   }
 ]

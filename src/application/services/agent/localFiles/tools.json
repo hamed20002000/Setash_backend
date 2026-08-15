@@ -246,6 +246,108 @@
                     "roles"
                 ]
             }
+        },
+        {
+            "name": "create_category",
+            "description": "Yeni kategori oluşturur.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Oluşturulacak yeni kategorinin adı. Kullanıcının belirttiği kategori adını aynen al."
+                    },
+                    "parentname": {
+                        "type": "string",
+                        "description": "Yeni kategorinin oluşturulacağı üst kategorinin adı. Kullanıcı bir üst kategori belirttiyse, belirtilen kategori adını aynen al."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "update_category",
+            "description": "Mevcut kategori bilgilerini günceller. Kategori adını değiştirmek veya mevcut kategori bilgilerini düzenlemek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Mevcut kategori adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "newname": {
+                        "type": "string",
+                        "description": "Yeni kategori adı. Kullanıcının yazdığı değeri aynen al."
+                    }
+                },
+                "required": [
+                    "name",
+                    "newname"
+                ]
+            }
+        },
+        {
+            "name": "deleteـcategory",
+            "description": "Mevcut kategori hesabını sistemden siler.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Silinecek kategori adı. Kullanıcının yazdığı değeri aynen al."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "update_category_record_status",
+            "description": "Bir kategori hesabının aktif veya pasif durumunu değiştirir.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "recordStatus": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "kategori durumu. Aktif için 0, pasif için 1."
+                    }
+                },
+                "required": [
+                    "name",
+                    "recordStatus"
+                ]
+            }
+        },
+        {
+            "name": "change_category_parent",
+            "description": "Mevcut bir kategorinin üst kategorisini değiştirmek veya kategoriyi başka bir üst kategoriye taşımak için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Üst kategorisi değiştirilecek mevcut kategorinin adı. Kullanıcının belirttiği kategori adını aynen al."
+                    },
+                    "parentname": {
+                        "type": "string",
+                        "description": "Kategorinin bağlanacağı yeni üst kategorinin adı. Kullanıcının belirttiği üst kategori adını aynen al."
+                    }
+                },
+                "required": [
+                    "name",
+                    "parentname"
+                ]
+            }
         }
     ]
 }

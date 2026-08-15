@@ -20,7 +20,9 @@
         "namerequired":"Kategori adı gereklidir.",
         "categoryexist":"Kategori zaten mevcut.",
         "categorynotfound":"Kategori bulunamadı!",
-        "parentnotfound":"Üst kategori bulunamadı"
+        "parentnotfound":"Üst kategori bulunamadı",
+        "parentnamerequired":"Ebeveyn adı gereklidir.",
+        "parentnamenotfound":"Üst öğe adı bulunamadı"
 
     }
 

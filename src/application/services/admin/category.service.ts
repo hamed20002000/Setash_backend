@@ -47,6 +47,9 @@ export class CategoryService extends BaseService<Categories> {
 
                 var categoryDto = new CreateCategoryDto();
                 categoryDto.name = this.toolRegister.normalizingName(param.name);
+                var parentSpecification=new CategorySpecification(param.parentname.trim());
+                var checkParentCategory = await this.getWithSpecification(parentSpecification);
+                 categoryDto.parentId=checkParentCategory.length>0?checkParentCategory[0].id:undefined
 
                 var user = param.req.user;
                 const user_specification = new UsernameSpecification(user.username);
@@ -295,7 +298,7 @@ export class CategoryService extends BaseService<Categories> {
                             errorMessage: messages.category.namerequired
                         }
                     }, param.req.user.username)
-                    throw new HttpException(messages.role.namerequired, HttpStatus.BAD_REQUEST);
+                    throw new HttpException(messages.category.namerequired, HttpStatus.BAD_REQUEST);
                 }
                 var specification = new CategorySpecification(param.name);
                 var checkCategory = await this.getWithSpecification(specification);
@@ -329,6 +332,85 @@ export class CategoryService extends BaseService<Categories> {
                 return {
                     continuePrompt: undefined,
                     toolName: "update_category_record_status"
+                };
+            }
+        })
+
+                this.toolRegister.register({
+            functionName: "change_category_parent",
+            handler: async (param: any): Promise<RequestResult> => {
+                var categoryDto = new UpdateCategoryDto();
+
+                if (param.name == undefined || param.name.replaceAll(" ", "") == "") {
+                    this.history.addNewHistory({
+                        status: "fault",
+                        operation: "update_category_record_status",
+                        parameters: this.history.getParams(param),
+                        result: {
+                            errorMessage: messages.category.namerequired
+                        }
+                    }, param.req.user.username)
+                    throw new HttpException(messages.role.namerequired, HttpStatus.BAD_REQUEST);
+                }
+                   if (param.parentname == undefined || param.parentname.replaceAll(" ", "") == "") {
+                    this.history.addNewHistory({
+                        status: "fault",
+                        operation: "update_category_record_status",
+                        parameters: this.history.getParams(param),
+                        result: {
+                            errorMessage: messages.category.parentnamerequired
+                        }
+                    }, param.req.user.username)
+                    throw new HttpException(messages.category.parentnamerequired, HttpStatus.BAD_REQUEST);
+                }
+
+                var specification = new CategorySpecification(param.name);
+                var checkCategory = await this.getWithSpecification(specification);
+                if (checkCategory.length < 1) {
+                    this.history.addNewHistory({
+                        status: "fault",
+                        operation: "update_category_record_status",
+                        parameters: this.history.getParams(param),
+                        result: {
+                            errorMessage: messages.category.categorynotfound
+                        }
+                    }, param.req.user.username)
+
+                    throw new HttpException(messages.role.rolenotfound, HttpStatus.NOT_FOUND);
+                }
+
+                 var parentSpecification = new CategorySpecification(param.parentname);
+                var parentCheckCategory = await this.getWithSpecification(parentSpecification);
+                if (parentCheckCategory.length < 1) {
+                    this.history.addNewHistory({
+                        status: "fault",
+                        operation: "update_category_record_status",
+                        parameters: this.history.getParams(param),
+                        result: {
+                            errorMessage: messages.category.parentnamenotfound
+                        }
+                    }, param.req.user.username)
+
+                    throw new HttpException(messages.category.parentnamenotfound, HttpStatus.NOT_FOUND);
+                }
+                checkCategory[0].parent=parentCheckCategory[0];
+
+                var updateCategory = await this.update(checkCategory[0]);
+                var result = GenericMapper.toDto(CategoryListDto, updateCategory, { excludeExtraneousValues: true });
+                this.history.addNewHistory({
+                    status: "success",
+                    operation: "update_category_record_status",
+                    parameters: this.history.getParams(param),
+                    result: {
+                        "id": updateCategory.id.toString(),
+                        "name": param.name,
+                        "parentname":param.name
+                    }
+                }, param.req.user.username)
+
+                return {
+                    continuePrompt: undefined,
+                    toolName: "change_category_parent"
                 };
             }
         })

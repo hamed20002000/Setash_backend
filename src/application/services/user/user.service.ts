@@ -33,7 +33,7 @@ import { ToolRegister } from '../agent/toolRegister';
 import { GenericMapper } from 'src/presentation/helpers/mapper-classes';
 import { recordStatus } from 'src/domain/enums/recordstatus.enum';
 import { RoleService } from './role.service';
-import message from '../../services/agent/messages.json'
+import message from '../agent/localFiles/messages.json'
 import { RequestResult } from '../agent/types';
 import { ContextManager } from '../agent/contextManager';
 

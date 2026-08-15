@@ -1,14 +1,35 @@
 {
     
         "create_role":"rol oluşturma",
+        "create_role_end":"Rol kaydı yapıldı.",
+
         "update_role":"rolü güncelleme",
+        "update_role_end":"Rol güncellemesi tamamlandı.",
+
         "delete_role":"rol silme",
+        "delete_role_end":"Rol silme işlemi tamamlandı.",
+
         "assign_role_operations":"operasyonlara rol atama",
+        "assign_role_operations_end":"Görev için kayıt işlemi tamamlandı.",
+
         "update_role_record_status":"rol durumunu güncelleme",
+        "update_role_record_status_end":"Rol durumu güncellemesi tamamlandı.",
+
         "create_user":"kullanıcı oluşturma",
+        "create_user_end":"Kullanıcı kayıtlı",
+
         "update_user":"kullanıcıyı güncelliyor",
+        "update_user_end":"Kullanıcı güncellemesi tamamlandı.",
+
         "delete_user":"kullanıcıyı silme",
+        "delete_user_end":"Kullanıcı silindi.",
+
         "update_user_record_status":"kullanıcı durumunu güncelleme",
+        "update_user_record_status_end":"Kullanıcı durumu güncellendi.",
+
         "change-user-password":"kullanıcı şifresini değiştirme",
-         "assign-user-roles":"kullanıcı rollerini atama"
+        "change-user-password_end":"Kullanıcı şifresi güncellendi.",
+
+         "assign-user-roles":"kullanıcı rollerini atama",
+         "assign-user-roles_end":"Kullanıcı rolleri atandı."
 }

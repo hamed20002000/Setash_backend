@@ -391,15 +391,15 @@ ${prompt}`;
             for (const toolName of selectedToolNames) {
                 try {
 
-                    this.agentGateway.sendCurrentTool(req.user.id, {
+                    this.agentGateway.sendCurrentTool(req.user.userid, {
                         currentOp: socketMapping[toolName]
                     })
 
                     const selectedTool = await this.agentToolsService.extractTools(prompt, toolName, this.history.getHistory(0, req.user.username) as string);
                     const toolResult = await this.agentToolsService.executeTool(selectedTool.functionName, { ...selectedTool.parameters, files: files }, req);
-                    this.agentGateway.sendToolResult(req.user.id, {
+                    this.agentGateway.sendToolResult(req.user.userid, {
                         result: "success",
-                        message: prompt,
+                        message:  socketMapping[`${toolName}_end`],
                         continuePrompt: toolResult.continuePrompt,
                         toolName: toolResult.toolName,
                         list: []
@@ -416,15 +416,9 @@ ${prompt}`;
 
 
                 }
-
-
             }
-
-
-
         }
         catch (error) {
-
                this.agentGateway.sendToolResult(req.user.id, {
                         result: "error",
                         message:"Kritik hata, lütfen operatörle iletişime geçin.",

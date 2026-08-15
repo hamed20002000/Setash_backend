@@ -42,5 +42,22 @@
   {
     "tool_name": "assign-user-roles",
     "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
+  },
+
+    {
+    "tool_name": "create_category",
+    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
+  },
+     {
+    "tool_name": "update_category",
+    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
+  },
+       {
+    "tool_name": "deleteـcategory",
+    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
+  },
+       {
+    "tool_name": "update_category_record_status",
+    "embedding_text": "Bir kullanıcıya bir veya birden fazla rol atama işlemidir. Mevcut kullanıcının yetkilerini belirlemek veya güncellemek için kullanılır. Kullanıcıya rol atama, kullanıcıya yetki verme, kullanıcının rollerini değiştirme, kullanıcının rollerini güncelleme veya kullanıcıya yeni roller tanımlama isteklerini ifade eder. Bu işlem kullanıcının şifresini değiştirmek, profil bilgilerini güncellemek veya yeni kullanıcı oluşturmak için kullanılmaz."
   }
 ]

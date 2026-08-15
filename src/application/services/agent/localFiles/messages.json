@@ -15,6 +15,13 @@
         "Somerolesnotfound":"Bazı roller bulunamadı.",
         "Usernotfound":"Kullanıcı bulunamadı!",
         "passwordisincorrect":"Geçerli şifre yanlış!"
+    },
+    "category":{
+        "namerequired":"Kategori adı gereklidir.",
+        "categoryexist":"Kategori zaten mevcut.",
+        "categorynotfound":"Kategori bulunamadı!",
+        "parentnotfound":"Üst kategori bulunamadı"
+
     }
 
 }

@@ -188,6 +188,40 @@ Examples of behavior:
 - "entity with grammatical changes" -> return the original entity without those changes
 
 Parameter values must not be translated or rewritten.
+
+Parameter extraction for multiple selected tools:
+
+Each selected tool has its own parameter extraction task.
+
+Extract the parameters for each selected tool independently from the current
+prompt.
+
+When the current prompt contains multiple operations, determine which part of
+the prompt belongs to each selected tool and extract parameters only from that
+part.
+
+Do not reuse a parameter extracted for one tool as the parameter of another
+tool.
+
+A parameter value belonging to one operation must not automatically be applied
+to another operation.
+
+If different operations contain different entity values, preserve the entity
+value associated with each operation.
+
+Use the linguistic structure and meaning of the current prompt to determine
+which entity belongs to which tool.
+
+Do not use a parameter from one operation simply because it appeared earlier in
+the prompt.
+
+Explicit parameter values in the current prompt must be preserved exactly as
+provided by the user.
+
+Conversation history may be used only according to the history rules below.
+History must not override an explicit parameter belonging to the current
+operation.
+
 History-based parameter extraction:
 
 - When necessary, obtain parameter values from the conversation history.

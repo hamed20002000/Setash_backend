@@ -22,4 +22,10 @@ export class ToolRegister {
 
         return handler(param);
     }
+      normalizingName(name:string):string{
+
+      return name.replace(/\brolü(nü|ne|ni|na|nun|nün|nın|nin)?\b/giu, "")
+          .replace(/\brol\b/giu, "")
+          .trim();
+  }
 }

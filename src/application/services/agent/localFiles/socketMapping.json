@@ -31,5 +31,45 @@
         "change-user-password_end":"Kullanıcı şifresi güncellendi.",
 
          "assign-user-roles":"kullanıcı rollerini atama",
-         "assign-user-roles_end":"Kullanıcı rolleri atandı."
+         "assign-user-roles_end":"Kullanıcı rolleri atandı.",
+
+         "create_category":"Kategori oluşturuluyor.",
+         "create_category_end":"kategori oluşturuldu",
+
+         "update_category":"Kategori güncelleniyor.",
+         "update_category_end":"kategori güncellendi",
+
+         "deleteـcategory":"kategori siliniyor",
+         "deleteـcategory_end":"kategori silindi",
+
+         "update_category_record_status":"Kategori durumu güncelleniyor.",
+         "update_category_record_status_end":"kategori durumu güncellendi",
+
+         "change_category_parent":"Üst kategori değişiyor.",
+         "change_category_parent_end":"Üst kategori değiştirildi",
+
+         "create_item_unit":"Ürün birimi oluşturuluyor.",
+         "create_item_unit_end":"Öğe birimi oluşturuldu",
+
+         "update_item_unit":" Birimi güncelleniyor.",
+         "update_item_unit_end":"Birim güncellendi.",
+
+         "delete_item_unit":"Birim siliniyor.",
+         "delete_item_unit_end":"Birim silindi.",
+
+         "update_item_unit_record_status":"Birim durumu güncelleniyor.",
+         "update_item_unit_record_status_end":"Birim durumu güncellendi",
+
+
+         "create_product":"Ürün oluşturuluyor",
+         "create_product_end":"Ürün oluşturuldu",
+
+         "update_product":"Ürün güncelleniyor.",
+         "update_product_end":"Ürün güncellendi",
+
+         "delete_product":"Ürün siliniyor.",
+         "delete_product_end":"Ürün silindi",
+
+         "update_product_record_status":"Ürün durumu güncelleniyor.",
+         "update_product_record_status_end":"Ürün durumu güncellendi"
 }

@@ -24,6 +24,27 @@
         "parentnamerequired":"Ebeveyn adı gereklidir.",
         "parentnamenotfound":"Üst öğe adı bulunamadı"
 
+    },
+    "unit":{
+        "unitalreadyexist":"Ürün birimi zaten mevcut.",
+        "namerequired":"Ürün birimi gereklidir.",
+        "nameandnewNameisrequired":"Ürün birimi ve yeni ad zorunludur!",
+        "itemunitfound":"Öğe birimi bulunamadı!"
+
+    },
+    "product":{
+        "productalreadyexist":"Ürün zaten mevcut.",
+        "nameisrequired":"Ürün adı gereklidir.",
+        "abbriviationalreadyexist":"Bu kısaltmaya sahip ürün halihazırda mevcut.",
+        "categorynotfound":"Kategori bulunamadı!",
+        "categorynamerequired":"Kategori adı gereklidir.",
+        "unitnamerequired":"Ürün birimi gereklidir.",
+        "unititemunitfound":"Öğe birimi bulunamadı!",
+        "productnotfound":"Ürün bulunamadı"
+
+
+
+
     }
 
 }

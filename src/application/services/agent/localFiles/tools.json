@@ -348,6 +348,129 @@
                     "parentname"
                 ]
             }
+        },
+        {
+            "name": "create_item_unit",
+            "description": "Yeni bir ürün birimi oluşturur. Sisteme yeni bir ölçü veya ürün birimi eklemek için kullanılır. Kullanıcının belirttiği birim adını sisteme yeni bir birim olarak kaydetme isteklerini ifade eder.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Oluşturulacak yeni ürün biriminin adı. Kullanıcının belirttiği birim adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama. Çevreleyen kelimeleri parametreye dahil etme."
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            }
+        },
+        {
+            "name": "update_item_unit",
+            "description": "Mevcut rol bilgilerini günceller. Rol adını değiştirmek veya rol bilgilerini düzenlemek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Mevcut rol adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "newtitle": {
+                        "type": "string",
+                        "description": "Yeni rol adı. Kullanıcının yazdığı değeri aynen al."
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            }
+        },
+        {
+            "name": "update_item_unit",
+            "description": "Mevcut bir ürün biriminin bilgilerini günceller. Birim adını değiştirmek veya birimin aktif/pasif durumunu değiştirmek için kullanılır. Mevcut bir ürün birimini yeniden adlandırma, birim bilgilerini düzenleme veya birimin kayıt durumunu değiştirme isteklerini ifade eder.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Güncellenecek mevcut ürün biriminin adı. Kullanıcının belirttiği mevcut birim adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    },
+                    "newtitle": {
+                        "type": "string",
+                        "description": "Ürün birimi için belirtilen yeni ad. Kullanıcı yeni bir ad belirttiyse yalnızca yeni birim adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            }
+        },
+        {
+            "name": "update_item_unit_record_status",
+            "description": "Mevcut bir ürün biriminin kayıt durumunu günceller. Birim aktif hale getirmek, pasif yapmak, devre dışı bırakmak veya tekrar aktif etmek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Durumu değiştirilecek mevcut ürün biriminin adı. Kullanıcının belirttiği birim adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    },
+                    "recordStatus": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Ürün biriminin yeni kayıt durumu. Aktif için 0, pasif için 1."
+                    }
+                },
+                "required": [
+                    "title",
+                    "recordStatus"
+                ]
+            }
+        },
+        {
+            "name": "create_product",
+            "description": "Yeni bir ürün oluşturur. Sisteme yeni bir ürün kaydı eklemek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "productname": {
+                        "type": "string",
+                        "description": "Oluşturulacak ürünün adı. Kullanıcının yazdığı ürün adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    },
+                    "categoryname": {
+                        "type": "string",
+                        "description": "Ürünün atanacağı mevcut kategorinin adı. Kullanıcının belirttiği kategori adını aynen al. Çeviri yapma veya değiştirme."
+                    },
+                    "unitname": {
+                        "type": "string",
+                        "description": "Ürünün atanacağı mevcut ürün biriminin adı. Kullanıcının belirttiği birim adını aynen al. Çeviri yapma veya değiştirme."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Ürünün kodu. Kullanıcı tarafından belirtilmişse değeri aynen al."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Ürün açıklaması. Kullanıcı tarafından belirtilmişse metni aynen al."
+                    },
+                    "abbreviation": {
+                        "type": "string",
+                        "description": "Ürünün kısaltması. Kullanıcı tarafından belirtilmişse değeri aynen al."
+                    },
+                    "weight": {
+                        "type": "number",
+                        "description": "Ürünün ağırlığı. Kullanıcı tarafından belirtilmişse sayısal değeri aynen al."
+                    }
+                },
+                "required": [
+                    "productname",
+                    "categoryname",
+                    "unitname"
+                ]
+            }
         }
     ]
 }

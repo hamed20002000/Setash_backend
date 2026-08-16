@@ -62,5 +62,42 @@
   {
     "tool_name": "change_category_parent",
     "embedding_text": "Bir kategorinin üst kategorisini değiştirme işlemidir. Mevcut bir kategoriyi başka bir üst kategoriye taşımak, kategoriyi farklı bir kategori altında konumlandırmak veya mevcut kategori hiyerarşisini değiştirmek için kullanılır. Bir kategorinin yeni üst kategorisini belirleme, kategori ağacındaki yerini değiştirme veya kategoriyi başka bir kategorinin altına taşıma isteklerini ifade eder. Bu işlem kategoriyi aktif veya pasif yapmak, kategori adını değiştirmek, kategori kodunu değiştirmek, yeni kategori oluşturmak veya kategori silmek için kullanılmaz."
+  },
+  {
+    "tool_name": "create_item_unit",
+    "embedding_text": "Yeni bir ürün birimi oluşturma işlemidir. Sisteme yeni bir ürün birimi eklemek, yeni bir ölçü birimi tanımlamak veya yeni birim kaydetmek için kullanılır. Adet, kilogram, gram, metre, litre veya benzeri yeni ürün birimlerinin sisteme eklenmesi ve kaydedilmesi isteklerini ifade eder. Bu işlem mevcut birim adını değiştirmek, birimin aktif veya pasif durumunu değiştirmek veya mevcut birimi silmek için kullanılmaz."
+  },
+  {
+    "tool_name": "update_item_unit",
+    "embedding_text": "Sistemde kayıtlı bir ürün biriminin bilgilerini değiştirme işlemidir. Mevcut ürün biriminin adını değiştirmek, birimi yeniden adlandırmak veya birim bilgilerini güncellemek için kullanılır. Ürün birimi adı değiştirme ve mevcut birim üzerinde düzenleme yapma isteklerini ifade eder."
+  },
+  {
+    "tool_name": "delete_item_unit",
+    "embedding_text": "Sistemde kayıtlı bir ürün birimini kaldırma işlemidir. Bir ürün birimini silmek, sistemden kaldırmak veya ürün birimi kaydını tamamen kaldırmak için kullanılır. Ürün birimi silme ve ürün birimi kaldırma isteklerini ifade eder."
+  },
+  {
+    "tool_name": "update_item_unit_record_status",
+    "embedding_text": "Bir ürün biriminin aktiflik durumunu değiştirme işlemidir. Bir ürün birimini aktif etmek, etkinleştirmek, yeniden kullanıma açmak, pasif yapmak, devre dışı bırakmak veya kullanıma kapatmak için kullanılır. Ürün biriminin aktif veya pasif durumunu değiştirme isteklerini ifade eder."
+  },
+
+  {
+    "tool_name": "create_product",
+    "embedding_text": "Sisteme yeni bir ürün ekleme işlemidir. Yeni ürün veya malzeme oluşturmak, ürün kaydı açmak ve yeni bir ürün tanımlamak için kullanılır. Ürün adı, kodu, açıklaması, kısaltması, kategorisi, birimi ve isteğe bağlı ağırlık bilgileriyle yeni ürün oluşturma ve kaydetme isteklerini ifade eder."
+  },
+  {
+    "tool_name": "update_product",
+    "embedding_text": "Sistemde kayıtlı bir ürünün bilgilerini güncelleme işlemidir. Mevcut ürünün adını değiştirmek, ürün kodunu veya açıklamasını güncellemek, kısaltmasını veya ağırlığını değiştirmek, ürünün kategorisini veya birimini değiştirmek ya da ürünün aktif/pasif durumunu güncellemek için kullanılır. Mevcut ürün üzerinde düzenleme yapma, ürün bilgilerini değiştirme veya ürünün özelliklerini güncelleme isteklerini ifade eder."
+  },
+  {
+    "delete_product": "update_product",
+    "embedding_text": "Sistemde kayıtlı bir ürünün bilgilerini güncelleme işlemidir. Mevcut ürünün adını değiştirmek, ürün kodunu veya açıklamasını güncellemek, kısaltmasını veya ağırlığını değiştirmek, ürünün kategorisini veya birimini değiştirmek ya da ürünün aktif/pasif durumunu güncellemek için kullanılır. Mevcut ürün üzerinde düzenleme yapma, ürün bilgilerini değiştirme veya ürünün özelliklerini güncelleme isteklerini ifade eder."
+  },
+  {
+    "tool_name": "delete_product",
+    "embedding_text": "Sistemde kayıtlı bir ürünü silme işlemidir. Mevcut bir ürünü sistemden kaldırmak, ürünü silmek veya artık kullanılmayan bir ürün kaydını kaldırmak için kullanılır. Belirli bir ürünün silinmesini veya ürün kaydının sistemden kaldırılmasını isteyen işlemleri ifade eder. Bu işlem yeni ürün oluşturmak, mevcut ürün bilgilerini güncellemek veya ürünün aktif/pasif durumunu değiştirmek için kullanılmaz."
+  },
+  {
+    "tool_name": "update_product_record_status",
+    "embedding_text": "Sistemde kayıtlı bir ürünün kayıt durumunu güncelleme işlemidir. Bir ürünü aktif hale getirmek, pasif yapmak, devre dışı bırakmak veya tekrar aktif etmek için kullanılır. Mevcut bir ürünün aktif veya pasif durumunu değiştirme isteklerini ifade eder. Bu işlem ürünün adını, kodunu, açıklamasını, kısaltmasını, ağırlığını, kategorisini veya birimini değiştirmek, yeni ürün oluşturmak ya da ürün silmek için kullanılmaz."
   }
 ]

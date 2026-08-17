@@ -103,16 +103,32 @@
     "tool_name": "create_pole_or_transformer",
     "embedding_text": "Sisteme yeni bir ürün tipi kaydetme işlemidir. Yeni bir direk veya transformatör oluşturmak ve sisteme kaydetmek için kullanılır. Demir direk, beton direk veya transformatör gibi yeni ürün tiplerinin sisteme eklenmesi ve tanımlanması isteklerini ifade eder. Bu işlem mevcut ürün tipini güncellemek, ürün tipinin aktif veya pasif durumunu değiştirmek veya mevcut ürün tipini silmek için kullanılmaz."
   },
-{
-  "tool_name": "update_pole_or_transformer",
-  "embedding_text": "Sistemde kayıtlı bir ürün tipinin bilgilerini güncelleme işlemidir. Mevcut bir direk veya transformatörün adını, ürün tipini veya kayıt durumunu değiştirmek için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin bilgilerini düzenleme, yeniden tanımlama veya durumunu güncelleme isteklerini ifade eder. Bu işlem yeni bir direk veya transformatör oluşturmak veya mevcut ürün tipini silmek için kullanılmaz."
-},
-{
-  "tool_name": "delete_pole_or_transformer",
-  "embedding_text": "Sistemde kayıtlı bir ürün tipini silme işlemidir. Mevcut bir direk veya transformatör kaydını sistemden kaldırmak için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin silinmesi, sistemden kaldırılması veya kaydının sonlandırılması isteklerini ifade eder. Bu işlem yeni bir direk veya transformatör oluşturmak, mevcut ürün tipinin bilgilerini güncellemek veya kayıt durumunu değiştirmek için kullanılmaz."
-},
- {
-  "tool_name": "update_pole_or_transformer_record_status",
-  "embedding_text": "Sistemde kayıtlı bir ürün tipinin kayıt durumunu güncelleme işlemidir. Mevcut bir direk veya transformatörü aktif veya pasif yapmak, kullanım durumunu değiştirmek veya tekrar kullanıma açmak için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin kayıt durumunu aktif ya da pasif olarak değiştirme isteklerini ifade eder. Bu işlem ürün tipinin adını veya türünü değiştirmek, yeni direk veya transformatör oluşturmak ya da mevcut ürünü silmek için kullanılmaz."
-}
+  {
+    "tool_name": "update_pole_or_transformer",
+    "embedding_text": "Sistemde kayıtlı bir ürün tipinin bilgilerini güncelleme işlemidir. Mevcut bir direk veya transformatörün adını, ürün tipini veya kayıt durumunu değiştirmek için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin bilgilerini düzenleme, yeniden tanımlama veya durumunu güncelleme isteklerini ifade eder. Bu işlem yeni bir direk veya transformatör oluşturmak veya mevcut ürün tipini silmek için kullanılmaz."
+  },
+  {
+    "tool_name": "delete_pole_or_transformer",
+    "embedding_text": "Sistemde kayıtlı bir ürün tipini silme işlemidir. Mevcut bir direk veya transformatör kaydını sistemden kaldırmak için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin silinmesi, sistemden kaldırılması veya kaydının sonlandırılması isteklerini ifade eder. Bu işlem yeni bir direk veya transformatör oluşturmak, mevcut ürün tipinin bilgilerini güncellemek veya kayıt durumunu değiştirmek için kullanılmaz."
+  },
+  {
+    "tool_name": "update_pole_or_transformer_record_status",
+    "embedding_text": "Sistemde kayıtlı bir ürün tipinin kayıt durumunu güncelleme işlemidir. Mevcut bir direk veya transformatörü aktif veya pasif yapmak, kullanım durumunu değiştirmek veya tekrar kullanıma açmak için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin kayıt durumunu aktif ya da pasif olarak değiştirme isteklerini ifade eder. Bu işlem ürün tipinin adını veya türünü değiştirmek, yeni direk veya transformatör oluşturmak ya da mevcut ürünü silmek için kullanılmaz."
+  },
+  {
+    "tool_name": "create_supplier",
+    "embedding_text": "Sisteme yeni bir tedarikçi oluşturma işlemidir. Yeni bir tedarikçi veya sağlayıcı kaydı eklemek, yeni bir firma ya da hizmet sağlayıcısı tanımlamak ve tedarikçiyi belirli bir bölgeye bağlamak için kullanılır. Yeni tedarikçi oluşturma, tedarikçi ekleme, yeni sağlayıcı kaydetme ve tedarikçiyi bir bölgeyle ilişkilendirme isteklerini ifade eder. Bu işlem mevcut bir tedarikçinin bilgilerini güncellemek, aktif veya pasif durumunu değiştirmek veya tedarikçiyi silmek için kullanılmaz."
+  },
+  {
+    "tool_name": "update_supplier",
+    "embedding_text": "Sistemde kayıtlı bir tedarikçinin bilgilerini güncelleme işlemidir. Mevcut tedarikçinin adını, adresini, telefonunu, firma bilgisini veya bağlı olduğu bölgeyi değiştirmek ve tedarikçi bilgilerini güncellemek için kullanılır. Tedarikçi bilgilerini düzenleme, mevcut sağlayıcının bilgilerini değiştirme veya tedarikçiyi farklı bir bölgeye bağlama isteklerini ifade eder. Bu işlem yeni bir tedarikçi oluşturmak, tedarikçiyi aktif veya pasif yapmak veya mevcut tedarikçiyi silmek için kullanılmaz."
+  },
+  {
+    "tool_name": "delete_supplier",
+    "embedding_text": "Sistemde kayıtlı mevcut bir tedarikçiyi silme işlemidir. Kayıtlı bir tedarikçiyi veya sağlayıcıyı sistemden kaldırmak ve tedarikçi kaydını silmek için kullanılır. Tedarikçi silme, sağlayıcıyı kaldırma veya mevcut tedarikçi kaydını sistemden çıkarma isteklerini ifade eder. Bu işlem yeni bir tedarikçi oluşturmak, tedarikçi bilgilerini güncellemek veya tedarikçinin aktif veya pasif durumunu değiştirmek için kullanılmaz."
+  },
+  {
+    "tool_name": "update_supplier_record_status",
+    "embedding_text": "Sistemde kayıtlı bir tedarikçinin kayıt durumunu güncelleme işlemidir. Mevcut bir tedarikçiyi aktif hale getirmek, pasif yapmak, devre dışı bırakmak, tekrar aktif etmek veya kullanım durumunu değiştirmek için kullanılır. Tedarikçinin aktif veya pasif durumunu değiştirme isteklerini ifade eder. Bu işlem tedarikçinin adını, adresini, telefonunu, firma bilgisini veya bölgesini değiştirmek, yeni tedarikçi oluşturmak ya da mevcut tedarikçiyi silmek için kullanılmaz."
+  }
 ]

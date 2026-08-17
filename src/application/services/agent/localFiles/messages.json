@@ -56,7 +56,9 @@
     "supplier":{
         "nameisrequired":"Tedarikçi adı gereklidir.",
         "regionnameisrequired":"Bölge adı gereklidir.",
-        "regionnotfound":"Bölge adı bulunamadı!"
+        "regionnotfound":"Bölge adı bulunamadı!",
+        "notfound":"Tedarikçi adı bulunamadı!"
+
 
 
  

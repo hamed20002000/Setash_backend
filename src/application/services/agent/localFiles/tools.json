@@ -625,7 +625,7 @@
                         "description": "Aktiflik durumu değiştirilecek mevcut bölgenin adı. Kullanıcının belirttiği bölge adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
                     },
                     "recordstatus": {
-                            "type": "integer",
+                        "type": "integer",
                         "enum": [
                             0,
                             1
@@ -726,7 +726,7 @@
                         "description": "Aktiflik durumu değiştirilecek mevcut ürün tipinin adı. Kullanıcının belirttiği ürün tipi adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
                     },
                     "recordStatus": {
-                           "type": "integer",
+                        "type": "integer",
                         "enum": [
                             0,
                             1
@@ -736,6 +736,112 @@
                 },
                 "required": [
                     "name"
+                ]
+            }
+        },
+        {
+            "name": "create_supplier",
+            "description": "Yeni bir tedarikçi oluşturur. Sisteme yeni bir tedarikçi kaydı eklemek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Oluşturulacak tedarikçinin adı. Kullanıcının yazdığı tedarikçi adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    },
+                    "regionname": {
+                        "type": "string",
+                        "description": "Tedarikçinin atanacağı mevcut bölgenin adı. Kullanıcının belirttiği bölge adını aynen al. Çeviri yapma, değiştirme veya başka bir bölge adıyla değiştirme."
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "Tedarikçinin adresi. Kullanıcı tarafından belirtilmişse adres bilgisini aynen al. Çeviri yapma veya değiştirme."
+                    },
+                    "selffirm": {
+                        "type": "string",
+                        "description": "Tedarikçinin şirketin kendi bünyesine ait olup olmadığını belirtir. Kullanıcı tedarikçinin kendi şirketine ait olduğunu belirtiyorsa bu bilgiyi aynen al; dışarıdan veya harici bir tedarikçi olduğunu belirtiyorsa bu bilgiyi aynen al. Kullanıcının belirttiği değeri değiştirme, yorumlama veya çevirme."
+                    }
+                },
+                "required": [
+                    "name",
+                    "regionname"
+                ]
+            }
+        },
+        {
+            "name": "update_supplier",
+            "description": "Mevcut bir tedarikçinin bilgilerini günceller. Tedarikçinin adını, adresini, telefonunu, bağlı olduğu bölgeyi veya şirketin kendi tedarikçisi olup olmadığını değiştirmek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Mevcut tedarikçinin adı. Kullanıcının belirttiği mevcut tedarikçi adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    },
+                    "newname": {
+                        "type": "string",
+                        "description": "Tedarikçinin yeni adı. Kullanıcı tarafından belirtilmişse değeri aynen al. Çeviri yapma, değiştirme veya yorumlama."
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "Tedarikçinin yeni adresi. Kullanıcı tarafından belirtilmişse adres bilgisini aynen al. Çeviri yapma veya değiştirme."
+                    },
+                    "phone": {
+                        "type": "string",
+                        "description": "Tedarikçinin yeni telefon numarası. Kullanıcı tarafından belirtilmişse telefon numarasını aynen al. Değiştirme, düzeltme veya yorumlama."
+                    },
+                    "selffirm": {
+                        "type": "string",
+                        "description": "Tedarikçinin şirketin kendi bünyesine ait olup olmadığını belirtir. Kullanıcı tedarikçinin kendi şirketine ait olduğunu veya dışarıdan/harici bir tedarikçi olduğunu belirtiyorsa bu bilgiyi aynen al. Kullanıcının belirttiği değeri değiştirme, yorumlama veya çevirme."
+                    },
+                    "regionname": {
+                        "type": "string",
+                        "description": "Tedarikçinin atanacağı yeni bölgenin adı. Kullanıcının belirttiği bölge adını aynen al. Çeviri yapma, değiştirme veya başka bir bölge adıyla değiştirme."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "delete_supplier",
+            "description": "Mevcut bir tedarikçiyi sistemden siler.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Silinecek tedarikçinin adı. Kullanıcının belirttiği tedarikçi adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "update_supplier_record_status",
+            "description": "Bir tedarikçinin aktif veya pasif durumunu değiştirir. Tedarikçiyi aktif etmek, etkinleştirmek, yeniden kullanıma açmak, pasif yapmak, devre dışı bırakmak veya kullanıma kapatmak için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Tedarikçinin adı. Kullanıcının belirttiği tedarikçi adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    },
+                    "recordstatus": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Tedarikçinin durumu. Aktif veya etkin durumda yapmak için 0, pasif veya devre dışı durumda yapmak için 1 kullanılır."
+                    }
+                },
+                "required": [
+                    "name",
+                    "recordstatus"
                 ]
             }
         }

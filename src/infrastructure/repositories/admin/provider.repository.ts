@@ -12,5 +12,12 @@ export class ProviderRepository extends BaseRepository<Providers> {
   constructor(@InjectRepository(Providers) repository: Repository<Providers>) {
     super(repository);
   }
+
+    findByName(name: string): Promise<Providers | null> {
+      return this.repository.findOne({
+        where: { name } // Explicit cast
+      });
+    }
+
   
 }

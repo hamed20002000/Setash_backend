@@ -99,5 +99,17 @@
          "update_region_record_status_end":"Bölge durumu güncellendi",
 
          "change_region_parent":"Bölge üst öğesi güncelleniyor.",
-         "change_region_parent_end":"bölge üst öğesi güncellendi"
+         "change_region_parent_end":"bölge üst öğesi güncellendi",
+
+         "create_supplier":"Tedarikçi oluşturuyor",
+         "create_supplier_end":"tedarikçi oluşturuldu",
+
+         "update_supplier":"Tedarikçi güncelleme yapıyor.",
+         "update_supplier_end":"Tedarikçi güncellendi",
+
+         "delete_supplier":"Tedarikçi siliyor.",
+         "delete_supplier_end":"Tedarikçi silindi",
+
+         "update_supplier_record_status":"Tedarikçi durumu güncelleniyor.",
+         "update_supplier_record_status_end":"Tedarikçi durumu güncellendi."
 }

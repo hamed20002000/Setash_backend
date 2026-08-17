@@ -11,5 +11,12 @@ export class ProductTypeRepository extends BaseRepository<ProductTypes> {
   constructor(@InjectRepository(ProductTypes) repository: Repository<ProductTypes>) {
     super(repository);
   }
+
+
+    findByName(name: string): Promise<ProductTypes | null> {
+      return this.repository.findOne({
+        where: { name }, // Explicit cast
+      });
+    }
   
 }

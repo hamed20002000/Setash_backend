@@ -468,7 +468,274 @@
                 "required": [
                     "productname",
                     "categoryname",
-                    "unitname"
+                    "unitname",
+                    "code"
+                ]
+            }
+        },
+        {
+            "name": "update_product",
+            "description": "Mevcut bir ürünün bilgilerini günceller. Ürün adını, kodunu, açıklamasını, kısaltmasını, ağırlığını, kategorisini veya ürün birimini değiştirmek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Bilgileri güncellenecek mevcut ürünün adı. Kullanıcının belirttiği ürün adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    },
+                    "newname": {
+                        "type": "string",
+                        "description": "Ürünün yeni adı. Kullanıcı tarafından belirtilmişse değeri aynen al."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Ürünün yeni kodu. Kullanıcı tarafından belirtilmişse değeri aynen al."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Ürünün yeni açıklaması. Kullanıcı tarafından belirtilmişse metni aynen al."
+                    },
+                    "abbreviation": {
+                        "type": "string",
+                        "description": "Ürünün yeni kısaltması. Kullanıcı tarafından belirtilmişse değeri aynen al."
+                    },
+                    "categoryname": {
+                        "type": "string",
+                        "description": "Ürünün atanacağı yeni kategorinin adı. Kullanıcı tarafından belirtilmişse kategori adını aynen al."
+                    },
+                    "unitname": {
+                        "type": "string",
+                        "description": "Ürünün atanacağı yeni ürün biriminin adı. Kullanıcı tarafından belirtilmişse birim adını aynen al."
+                    },
+                    "weight": {
+                        "type": "number",
+                        "description": "Ürünün yeni ağırlığı. Kullanıcı tarafından belirtilmişse sayısal değeri aynen al."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "delete_product",
+            "description": "Mevcut bir ürünü sistemden siler. Ürün kaydını kalıcı olarak kaldırmak için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Silinecek mevcut ürünün adı. Kullanıcının belirttiği ürün adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "update_product_record_status",
+            "description": "Mevcut bir ürünün kayıt durumunu güncelleme işlemidir. Ürünü aktif veya pasif yapmak, ürünün kullanım durumunu değiştirmek veya ürünü tekrar kullanıma açmak için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Durumu değiştirilecek mevcut ürünün adı. Kullanıcının belirttiği ürün adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    },
+                    "recordstatus": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Ürünün yeni kayıt durumu. Aktif için 0, pasif için 1."
+                    }
+                },
+                "required": [
+                    "name",
+                    "recordstatus"
+                ]
+            }
+        },
+        {
+            "name": "create_region",
+            "description": "Yeni bir bölge oluşturur. Sisteme yeni bir bölge eklemek ve isteğe bağlı olarak mevcut bir üst bölgeye bağlamak için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Oluşturulacak yeni bölgenin adı. Kullanıcının belirttiği bölge adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    },
+                    "parentname": {
+                        "type": "string",
+                        "description": "Yeni bölgenin bağlanacağı mevcut üst bölgenin adı. Kullanıcı bir üst bölge belirtmişse adını aynen al. Çeviri yapma, değiştirme veya düzeltme. Üst bölge belirtilmemişse bu parametreyi gönderme."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "update_region",
+            "description": "Mevcut bir bölgenin bilgilerini günceller. Bölgenin adını değiştirmek için kullanılır. Bölgenin mevcut adıyla birlikte yeni adı belirtilerek güncelleme yapılmasını sağlar.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Bilgileri güncellenecek mevcut bölgenin adı. Kullanıcının belirttiği bölge adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    },
+                    "newname": {
+                        "type": "string",
+                        "description": "Bölgenin yeni adı. Kullanıcı tarafından belirtilmişse değeri aynen al."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "delete_region",
+            "description": "Mevcut bir bölgeyi siler. Silinecek bölgenin adı belirtilerek bölgenin sistemden kaldırılması için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Silinecek mevcut bölgenin adı. Kullanıcının belirttiği bölge adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "update_region_record_status",
+            "description": "Mevcut bir bölgenin aktiflik durumunu değiştirir. Bir bölgeyi aktif etmek, etkinleştirmek, yeniden kullanıma açmak, pasif yapmak, devre dışı bırakmak veya kullanıma kapatmak için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Aktiflik durumu değiştirilecek mevcut bölgenin adı. Kullanıcının belirttiği bölge adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    },
+                    "recordstatus": {
+                            "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Bölgenin yeni aktiflik durumu. Kullanıcı tarafından belirtilmişse sayısal değerini aynen al.Aktif için 0, pasif için 1."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "create_pole_or_transformer",
+            "description": "Sisteme yeni bir direk veya transformatör ürün tipi kaydetmek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Sisteme kaydedilecek yeni ürün tipinin adı. Kullanıcının belirttiği değeri aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "ahani",
+                            "beton",
+                            "transformer",
+                            "dr1",
+                            "dr2",
+                            "trafo"
+                        ],
+                        "description": "Oluşturulacak ürün tipinin türü. 'ahani' veya 'dr1' demir direk, 'beton' veya 'dr2' beton direk, 'transformer' veya 'trafo' transformatör anlamına gelir. Kullanıcının belirttiği değeri bu desteklenen değerlerden uygun olanıyla eşleştir."
+                    }
+                },
+                "required": [
+                    "name",
+                    "type"
+                ]
+            }
+        },
+        {
+            "name": "update_pole_or_transformer",
+            "description": "Mevcut bir direk veya transformatör ürün tipinin bilgilerini günceller. Ürün tipinin adını veya türünü değiştirmek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Bilgileri güncellenecek mevcut ürün tipinin adı. Kullanıcının belirttiği mevcut ürün tipi adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    },
+                    "newname": {
+                        "type": "string",
+                        "description": "Ürün tipinin yeni adı. Kullanıcı tarafından belirtilmişse değeri aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "ahani",
+                            "beton",
+                            "transformer",
+                            "dr1",
+                            "dr2",
+                            "trafo"
+                        ],
+                        "description": "Ürün tipinin yeni türü. 'ahani' veya 'dr1' demir direk, 'beton' veya 'dr2' beton direk, 'transformer' veya 'trafo' transformatör anlamına gelir. Kullanıcı tarafından belirtilmişse bu değerlerden uygun olanını kullan."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "delete_pole_or_transformer",
+            "description": "Mevcut bir direk veya transformatör ürün tipini sistemden silmek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Sistemden silinecek mevcut ürün tipinin adı. Kullanıcının belirttiği ürün tipi adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            }
+        },
+        {
+            "name": "update_pole_or_transformer_record_status",
+            "description": "Mevcut bir direk veya transformatör ürün tipinin aktiflik durumunu değiştirir. Ürün tipini aktif etmek, etkinleştirmek, yeniden kullanıma açmak, pasif yapmak, devre dışı bırakmak veya kullanıma kapatmak için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Aktiflik durumu değiştirilecek mevcut ürün tipinin adı. Kullanıcının belirttiği ürün tipi adını aynen al. Çeviri yapma, değiştirme veya düzeltme."
+                    },
+                    "recordStatus": {
+                           "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Ürün tipinin yeni aktiflik durumu. Kullanıcı tarafından belirtilmişse sayısal değeri aynen al.Aktif için 0, pasif için 1."
+                    }
+                },
+                "required": [
+                    "name"
                 ]
             }
         }

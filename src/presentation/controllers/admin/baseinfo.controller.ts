@@ -1050,6 +1050,7 @@ export class BaseinfoController {
         checkRegion.recordStatus = regionDto.recordStatus ?? checkRegion.recordStatus;
 
         var updateRegion = await this.regionService.update(checkRegion);
+        
         var result = GenericMapper.toDto(RegionListDto, updateRegion, { excludeExtraneousValues: true });
         return result;
     }

@@ -41,10 +41,25 @@
         "unitnamerequired":"Ürün birimi gereklidir.",
         "unititemunitfound":"Öğe birimi bulunamadı!",
         "productnotfound":"Ürün bulunamadı"
+    },
+    "poletrafo":{
+        "nameisrequired":"Direk adı gereklidir.",
+        "typeisrequired":"Direk tipi gereklidir.",
+        "notfound":"Direk tipi bulunamadı!"
+    },
+    "region":{
+        "nameisrequired":"Bölge adı gereklidir.",
+        "parentnamenotfound":"Bölge üst öğe adı bulunamadı",
+        "regionalreadyexists":"Bölge zaten mevcut",
+        "notfound":"Bölge adı bulunamadı!"
+    },
+    "supplier":{
+        "nameisrequired":"Tedarikçi adı gereklidir.",
+        "regionnameisrequired":"Bölge adı gereklidir.",
+        "regionnotfound":"Bölge adı bulunamadı!"
 
 
-
-
+ 
     }
 
 }

@@ -71,5 +71,33 @@
          "delete_product_end":"Ürün silindi",
 
          "update_product_record_status":"Ürün durumu güncelleniyor.",
-         "update_product_record_status_end":"Ürün durumu güncellendi"
+         "update_product_record_status_end":"Ürün durumu güncellendi",
+
+         "create_pole_or_transformer":"Ürün türü oluşturuluyor.",
+         "create_pole_or_transformer_end":"Ürün türü oluşturuldu",
+
+         "update_pole_or_transformer":"Ürün türü güncelleniyor.",
+         "update_pole_or_transformer_end":"Ürün türü güncellendi",
+
+
+         "delete_pole_or_transformer":"Ürün türü siliniyor.",
+         "delete_pole_or_transformer_end":"ürün türü silindi",
+
+         "update_pole_or_transformer_record_status":"Ürün tipi durumu güncelleniyor",
+         "update_pole_or_transformer_record_status_end":"Ürün türü durumu güncellendi.",
+
+         "create_region":"bölge oluşturuyor",
+         "create_region_end":"bölge oluşturuldu",
+
+         "update_region":"Bölge güncelleniyor.",
+         "update_region_end":"bölge güncellendi",
+
+         "delete_region":"bölge siliniyor",
+         "delete_region_end":"bölge silindi",
+
+         "update_region_record_status":"Bölge durumu güncelleniyor.",
+         "update_region_record_status_end":"Bölge durumu güncellendi",
+
+         "change_region_parent":"Bölge üst öğesi güncelleniyor.",
+         "change_region_parent_end":"bölge üst öğesi güncellendi"
 }

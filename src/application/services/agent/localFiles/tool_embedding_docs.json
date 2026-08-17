@@ -79,7 +79,6 @@
     "tool_name": "update_item_unit_record_status",
     "embedding_text": "Bir ürün biriminin aktiflik durumunu değiştirme işlemidir. Bir ürün birimini aktif etmek, etkinleştirmek, yeniden kullanıma açmak, pasif yapmak, devre dışı bırakmak veya kullanıma kapatmak için kullanılır. Ürün biriminin aktif veya pasif durumunu değiştirme isteklerini ifade eder."
   },
-
   {
     "tool_name": "create_product",
     "embedding_text": "Sisteme yeni bir ürün ekleme işlemidir. Yeni ürün veya malzeme oluşturmak, ürün kaydı açmak ve yeni bir ürün tanımlamak için kullanılır. Ürün adı, kodu, açıklaması, kısaltması, kategorisi, birimi ve isteğe bağlı ağırlık bilgileriyle yeni ürün oluşturma ve kaydetme isteklerini ifade eder."
@@ -99,5 +98,21 @@
   {
     "tool_name": "update_product_record_status",
     "embedding_text": "Sistemde kayıtlı bir ürünün kayıt durumunu güncelleme işlemidir. Bir ürünü aktif hale getirmek, pasif yapmak, devre dışı bırakmak veya tekrar aktif etmek için kullanılır. Mevcut bir ürünün aktif veya pasif durumunu değiştirme isteklerini ifade eder. Bu işlem ürünün adını, kodunu, açıklamasını, kısaltmasını, ağırlığını, kategorisini veya birimini değiştirmek, yeni ürün oluşturmak ya da ürün silmek için kullanılmaz."
-  }
+  },
+  {
+    "tool_name": "create_pole_or_transformer",
+    "embedding_text": "Sisteme yeni bir ürün tipi kaydetme işlemidir. Yeni bir direk veya transformatör oluşturmak ve sisteme kaydetmek için kullanılır. Demir direk, beton direk veya transformatör gibi yeni ürün tiplerinin sisteme eklenmesi ve tanımlanması isteklerini ifade eder. Bu işlem mevcut ürün tipini güncellemek, ürün tipinin aktif veya pasif durumunu değiştirmek veya mevcut ürün tipini silmek için kullanılmaz."
+  },
+{
+  "tool_name": "update_pole_or_transformer",
+  "embedding_text": "Sistemde kayıtlı bir ürün tipinin bilgilerini güncelleme işlemidir. Mevcut bir direk veya transformatörün adını, ürün tipini veya kayıt durumunu değiştirmek için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin bilgilerini düzenleme, yeniden tanımlama veya durumunu güncelleme isteklerini ifade eder. Bu işlem yeni bir direk veya transformatör oluşturmak veya mevcut ürün tipini silmek için kullanılmaz."
+},
+{
+  "tool_name": "delete_pole_or_transformer",
+  "embedding_text": "Sistemde kayıtlı bir ürün tipini silme işlemidir. Mevcut bir direk veya transformatör kaydını sistemden kaldırmak için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin silinmesi, sistemden kaldırılması veya kaydının sonlandırılması isteklerini ifade eder. Bu işlem yeni bir direk veya transformatör oluşturmak, mevcut ürün tipinin bilgilerini güncellemek veya kayıt durumunu değiştirmek için kullanılmaz."
+},
+ {
+  "tool_name": "update_pole_or_transformer_record_status",
+  "embedding_text": "Sistemde kayıtlı bir ürün tipinin kayıt durumunu güncelleme işlemidir. Mevcut bir direk veya transformatörü aktif veya pasif yapmak, kullanım durumunu değiştirmek veya tekrar kullanıma açmak için kullanılır. Demir direk, beton direk veya transformatör gibi mevcut ürün tiplerinin kayıt durumunu aktif ya da pasif olarak değiştirme isteklerini ifade eder. Bu işlem ürün tipinin adını veya türünü değiştirmek, yeni direk veya transformatör oluşturmak ya da mevcut ürünü silmek için kullanılmaz."
+}
 ]

@@ -357,12 +357,20 @@ ${prompt}`;
 
     }
 
-    async getCondinateToolsForRunPrompt(prompt: string): Promise<string[]> {
+    async getCondinateToolsForRunPrompt(prompt: string,history:string): Promise<string[]> {
+
+         const context = [
+        history,
+        `Current user request: ${prompt}`,
+    ].join("\n");
+
+
 
         const resp = await axios.post(
             "http://localhost:11434/api/embed", {
             model: "bge-m3:latest",
-            input: prompt,
+            input: context,
+
 
         }
         )
@@ -386,7 +394,7 @@ ${prompt}`;
     }
     async RunFunctionCalling(prompt: string, req: any, files: string[]): Promise<void> {
         try {
-            const condinateToolsName = await this.getCondinateToolsForRunPrompt(prompt)
+            const condinateToolsName = await this.getCondinateToolsForRunPrompt(prompt,this.history.getHistory(0, req.user.username) as string)
             const selectedToolNames = await this.agentToolsService.extractSelectedTool(prompt, condinateToolsName, this.history.getHistory(0, req.user.username) as string);
             for (const toolName of selectedToolNames) {
                 try {
@@ -406,10 +414,10 @@ ${prompt}`;
                     })
                 }
                 catch (error) {
-                    this.agentGateway.sendToolResult(req.user.id, {
+                    this.agentGateway.sendToolResult(req.user.userid, {
                         result: "error",
                         message: error?.message || "İşlem gerçekleştirilirken hata oluştu.",
-                        continuePrompt: undefined,
+                        continuePrompt: this.history.frequencyError(req.user.username)?"Komut istemi ardı ardına hatalar veriyorsa, komut istemini değiştirin.":undefined ,
                         toolName: undefined,
                         list: []
                     })
@@ -419,7 +427,7 @@ ${prompt}`;
             }
         }
         catch (error) {
-               this.agentGateway.sendToolResult(req.user.id, {
+               this.agentGateway.sendToolResult(req.user.userid, {
                         result: "error",
                         message:"Kritik hata, lütfen operatörle iletişime geçin.",
                         continuePrompt: undefined,

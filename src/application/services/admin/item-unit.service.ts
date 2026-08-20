@@ -240,7 +240,7 @@ export class ItemUnitService extends BaseService<ItemUnits> {
         var itemUnitDto = new UpdateItemUnitDto();
         itemUnitDto.recordStatus = param.recordStatus;
 
-        if (param.title == undefined || param.title.replaceAll(" ", "") == "") {
+        if (param.name == undefined || param.name.replaceAll(" ", "") == "") {
           this.history.addNewHistory({
             status: "fault",
             operation: "update_item_unit_record_status",
@@ -251,7 +251,7 @@ export class ItemUnitService extends BaseService<ItemUnits> {
           }, param.req.user.username)
           throw new HttpException(messages.unit.namerequired, HttpStatus.BAD_REQUEST);
         }
-        var specification = new ItemUnitSpecification(param.title);
+        var specification = new ItemUnitSpecification(param.name);
         var checkItemUnit = await this.getWithSpecification(specification);
         if (checkItemUnit.length < 1) {
           this.history.addNewHistory({

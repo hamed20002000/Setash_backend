@@ -28,4 +28,9 @@ export class ToolRegister {
           .replace(/\brol\b/giu, "")
           .trim();
   }
+
+     propIsExist(prop:string):boolean{
+        if(prop!==""&&prop!=undefined) return true;
+        return false
+     }
 }

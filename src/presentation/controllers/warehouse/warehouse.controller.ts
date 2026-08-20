@@ -2543,6 +2543,7 @@ export class WarehouseController {
     forceMajor.user = checkUser[0];
 
     var createForceMajor = await this.forceMajorsService.add(forceMajor);
+
     var result = GenericMapper.toDto(ForceMajors, createForceMajor, { excludeExtraneousValues: true });
     return result;
   }
@@ -2583,6 +2584,7 @@ export class WarehouseController {
     checkForceMajor.recordStatus = forceMajorDto.recordStatus ?? checkForceMajor.recordStatus;
 
     var updateForceMajor = await this.forceMajorsService.update(checkForceMajor);
+    
     var result = GenericMapper.toDto(ForceMajors, updateForceMajor, { excludeExtraneousValues: true });
     return result;
   }

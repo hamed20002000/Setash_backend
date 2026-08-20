@@ -56,6 +56,25 @@ export class ContextManager {
                 }
                 return obj;
        }
+       public frequencyError(userId:string):boolean{
+
+           const currentHistory=this.history.get(userId)??[];
+
+              let errorCount=0;
+              for(let i=0;i<currentHistory.length;i++){
+                     if(currentHistory[i].status=="fault"){
+                            errorCount++;
+                            if(errorCount>3) return true;
+                     }
+                     else{
+                            errorCount=0
+                     }
+              }
+              return false
+
+       }
+
+       
 
        
 }

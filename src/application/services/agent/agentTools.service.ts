@@ -44,19 +44,33 @@ Your task is to:
 
 Tool selection rules:
 
-- The current user prompt is the primary source for determining the requested operations.
+- You may select tools ONLY from the provided candidate tools.
+- The functionName in the output MUST exactly match the name of one of the
+  provided candidate tools.
+- Never invent a new tool name.
+- Never generate a tool name based on the user's wording.
+- Never rename, modify, combine, or infer a tool name.
+- If a tool does not exist in the provided candidate tools, do not return it.
+
+- The current user prompt is the primary source for determining the requested
+  operations.
 - Identify every distinct operation expressed in the current prompt.
 - Each distinct operation must be mapped to exactly one available tool.
 - Do not omit an operation requested by the user.
 - Do not create an operation that the user did not request.
 - Do not merge independent operations.
 - If the current prompt contains one operation, return one tool.
-- If the current prompt contains multiple operations, return all required tools.
+- If the current prompt contains multiple operations, return all required tools
+  in the order they should be executed.
 - Select tools according to semantic intent.
 - Do not select a tool merely because of keyword similarity.
+
 - Use conversation history only to understand the intent of the current request.
-- Do not extract or return parameters.
+- Do not treat previous operations as new operations.
 - Do not use previous parameters to make tool selections unless they are
+  necessary to understand what operation the user is requesting.
+
+- Do not extract or return parameters.
   necessary to understand what operation the user is requesting.
 
 Conversation history:

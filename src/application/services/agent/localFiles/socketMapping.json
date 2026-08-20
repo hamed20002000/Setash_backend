@@ -39,7 +39,7 @@
          "update_category":"Kategori güncelleniyor.",
          "update_category_end":"kategori güncellendi",
 
-         "deleteـcategory":"kategori siliniyor",
+         "delete_category":"kategori siliniyor",
          "deleteـcategory_end":"kategori silindi",
 
          "update_category_record_status":"Kategori durumu güncelleniyor.",
@@ -111,5 +111,18 @@
          "delete_supplier_end":"Tedarikçi silindi",
 
          "update_supplier_record_status":"Tedarikçi durumu güncelleniyor.",
-         "update_supplier_record_status_end":"Tedarikçi durumu güncellendi."
+         "update_supplier_record_status_end":"Tedarikçi durumu güncellendi.",
+
+
+         "create_force_major":"Mücbir sebep  oluşuyor.",
+         "create_force_major_end":"Mücbir sebep oluştu.",
+
+         "update_force_major":"Mücbir sebep güncelleniyor.",
+         "update_force_major_end":"Mücbir sebep güncellendi.",
+
+         "delete_force_major":"Mücbir sebep siliniyor.",
+         "delete_force_major_end":"Mücbir sebep silindi.",
+
+         "update_force_major_record_status":"Mücbir sebep durumu güncelleniyor.",
+         "update_force_major_record_status_end":"Mücbir sebep durumu güncellendi."
 }

@@ -41,16 +41,31 @@ export class CategoryService extends BaseService<Categories> {
                             errorMessage: messages.category.namerequired
                         }
                     }, param.req.user.username)
-                    throw new HttpException(messages.role.namerequired, HttpStatus.BAD_REQUEST);
+                    throw new HttpException(messages.category.namerequired, HttpStatus.BAD_REQUEST);
                 }
 
 
                 var categoryDto = new CreateCategoryDto();
                 categoryDto.name = this.toolRegister.normalizingName(param.name);
+                if( this.toolRegister.propIsExist(param.parentname)){
                 var parentSpecification=new CategorySpecification(param.parentname.trim());
                 var checkParentCategory = await this.getWithSpecification(parentSpecification);
+                if(checkParentCategory.length<1){
+                    this.history.addNewHistory({
+                        status: "fault",
+                        operation: "create_category",
+                        parameters: this.history.getParams(param),
+                        result: {
+                            errorMessage: messages.category.parentnamenotfound
+                        }
+                    }, param.req.user.username)
+                    throw new HttpException(messages.category.parentnamenotfound, HttpStatus.BAD_REQUEST);
+                }
                  categoryDto.parentId=checkParentCategory.length>0?checkParentCategory[0].id:undefined
-
+                }
+                else{
+                    categoryDto.parentId=null;
+                }
                 var user = param.req.user;
                 const user_specification = new UsernameSpecification(user.username);
                 var checkUser = await this.userService.getWithSpecification(user_specification, null,
@@ -75,6 +90,7 @@ export class CategoryService extends BaseService<Categories> {
                 }
 
                 var category = GenericMapper.toEntity(Categories, categoryDto);
+                
                 category.name = categoryDto.name.trim();
                 category.depth = 0;
                 category.createAt = new Date();
@@ -141,10 +157,31 @@ export class CategoryService extends BaseService<Categories> {
                     throw new HttpException(messages.category.categorynotfound, HttpStatus.NOT_FOUND);
                 }
 
+                if(param.newparentname!=""&&param.newparentname!=undefined){
+                     var parentspecification = new CategorySpecification(param.newparentname);
+                var checkParentCategory = await this.getWithSpecification(parentspecification);
+                if (checkParentCategory.length < 1) {
+                    this.history.addNewHistory({
+                        status: "fault",
+                        operation: "update_category",
+                        parameters: {
+                            "name": param.name,
+                            "parentname":param.newparentname
+                        },
+                        result: {
+                            errorMessage: messages.category.parentnamenotfound
+                        }
+                    }, param.req.user.username)
+                    throw new HttpException(messages.category.parentnamenotfound, HttpStatus.NOT_FOUND);
+                }
+                checkCategory[0].parent=checkParentCategory[0];
 
-                checkCategory[0].name = categoryDto.newname?.trim() ?? checkCategory[0].name;
-                checkCategory[0].code = categoryDto.code ?? checkCategory[0].code;
-                if (categoryDto.newname != null && categoryDto.newname != undefined) {
+                }
+
+
+                checkCategory[0].name = this.toolRegister.normalizingName(param.newname)?.trim() ?? checkCategory[0].name;
+                //checkCategory[0].code = categoryDto.code ?? checkCategory[0].code;
+                if (param.newname != null && param.newname != undefined&&param.name?.trim()!=param.newname?.trim()) {
                     var updateSpecification = new CategoryUpdateSpecification(categoryDto.newname.trim(), categoryDto.id);
                     var checkCategoryForUpdate = await this.getWithSpecification(updateSpecification);
                     if (checkCategoryForUpdate.length > 0) {
@@ -163,26 +200,8 @@ export class CategoryService extends BaseService<Categories> {
                 }
                 let oldDepth = checkCategory[0].depth;
 
-                if (categoryDto.parentId !== undefined && categoryDto.parentId !== null) {
-                    var parentCategory = await this.getById(categoryDto.parentId);
-                    if (parentCategory == null) {
-                        this.history.addNewHistory({
-                            status: "fault",
-                            operation: "update_category",
-                            parameters: {
-                                "name": param.name
-                            },
-                            result: {
-                                errorMessage: messages.category.parentnotfound
-                            }
-                        }, param.req.user.username)
-                        throw new HttpException(messages.category.parentnotfound, HttpStatus.NOT_FOUND);
-                    }
-                    checkCategory[0].depth = parentCategory.depth + 1;
-                    if (!checkCategory[0].parent) {
-                        checkCategory[0].parent = new Categories();
-                    }
-                    checkCategory[0].parent.id = categoryDto.parentId;
+                if (checkCategory[0].parent !== undefined) {
+                    checkCategory[0].depth = checkCategory[0].parent.depth + 1;
                 } else {
                     checkCategory[0].depth = 0;
                     checkCategory[0].parent = null;
@@ -203,7 +222,6 @@ export class CategoryService extends BaseService<Categories> {
                     this.updateChildrenDepth(categoryDto.id);
 
                 }
-                checkCategory[0].recordStatus = categoryDto.recordStatus ?? checkCategory[0].recordStatus;
 
                 var updateCategory = await this.update(checkCategory[0]);
                 var result = GenericMapper.toDto(CategoryListDto, updateCategory, { excludeExtraneousValues: true });
@@ -226,19 +244,12 @@ export class CategoryService extends BaseService<Categories> {
                     toolName: "update_category"
                 }
 
-
-
-
-
-
-
-
             }
         })
 
 
         this.toolRegister.register({
-            functionName: "deleteـcategory",
+            functionName: "delete_category",
             handler: async (param: any): Promise<RequestResult> => {
 
                 if (param.name == undefined || param.name.replaceAll(" ", "") == "") {
@@ -336,7 +347,7 @@ export class CategoryService extends BaseService<Categories> {
             }
         })
 
-                this.toolRegister.register({
+        this.toolRegister.register({
             functionName: "change_category_parent",
             handler: async (param: any): Promise<RequestResult> => {
                 var categoryDto = new UpdateCategoryDto();
@@ -344,7 +355,7 @@ export class CategoryService extends BaseService<Categories> {
                 if (param.name == undefined || param.name.replaceAll(" ", "") == "") {
                     this.history.addNewHistory({
                         status: "fault",
-                        operation: "update_category_record_status",
+                        operation: "change_category_parent",
                         parameters: this.history.getParams(param),
                         result: {
                             errorMessage: messages.category.namerequired
@@ -355,7 +366,7 @@ export class CategoryService extends BaseService<Categories> {
                    if (param.parentname == undefined || param.parentname.replaceAll(" ", "") == "") {
                     this.history.addNewHistory({
                         status: "fault",
-                        operation: "update_category_record_status",
+                        operation: "change_category_parent",
                         parameters: this.history.getParams(param),
                         result: {
                             errorMessage: messages.category.parentnamerequired
@@ -369,7 +380,7 @@ export class CategoryService extends BaseService<Categories> {
                 if (checkCategory.length < 1) {
                     this.history.addNewHistory({
                         status: "fault",
-                        operation: "update_category_record_status",
+                        operation: "change_category_parent",
                         parameters: this.history.getParams(param),
                         result: {
                             errorMessage: messages.category.categorynotfound
@@ -384,7 +395,7 @@ export class CategoryService extends BaseService<Categories> {
                 if (parentCheckCategory.length < 1) {
                     this.history.addNewHistory({
                         status: "fault",
-                        operation: "update_category_record_status",
+                        operation: "change_category_parent",
                         parameters: this.history.getParams(param),
                         result: {
                             errorMessage: messages.category.parentnamenotfound
@@ -399,7 +410,7 @@ export class CategoryService extends BaseService<Categories> {
                 var result = GenericMapper.toDto(CategoryListDto, updateCategory, { excludeExtraneousValues: true });
                 this.history.addNewHistory({
                     status: "success",
-                    operation: "update_category_record_status",
+                    operation: "change_category_parent",
                     parameters: this.history.getParams(param),
                     result: {
                         "id": updateCategory.id.toString(),

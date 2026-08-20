@@ -58,9 +58,13 @@
         "regionnameisrequired":"Bölge adı gereklidir.",
         "regionnotfound":"Bölge adı bulunamadı!",
         "notfound":"Tedarikçi adı bulunamadı!"
-
-
-
+    },
+    "forceMajor":{
+        "nameisrequired":"Mücbir sebep adı gereklidir.",
+        "notfound":"Mücbir sebep bulunamadı!"
+    },
+    "tender":{
+        "nameisrequired":"İhale adı gereklidir."
  
     }
 

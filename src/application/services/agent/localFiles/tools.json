@@ -249,7 +249,7 @@
         },
         {
             "name": "create_category",
-            "description": "Yeni kategori oluşturur.",
+            "description": "Yeni bir kategori oluşturur. Kullanıcının isteği yeni bir kategori kaydı oluşturmayı ifade ediyorsa kullanılır. Kategori henüz sistemde mevcut değilmiş gibi yeni bir kayıt oluşturur; mevcut bir kategorinin üst kategorisini değiştirmek için kullanılmaz.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -259,7 +259,7 @@
                     },
                     "parentname": {
                         "type": "string",
-                        "description": "Yeni kategorinin oluşturulacağı üst kategorinin adı. Kullanıcı bir üst kategori belirttiyse, belirtilen kategori adını aynen al."
+                        "description": "Yeni oluşturulacak kategorinin altında yer alacağı mevcut üst kategorinin adı. Kullanıcı üst kategori belirttiyse değeri aynen al."
                     }
                 },
                 "required": [
@@ -280,6 +280,10 @@
                     "newname": {
                         "type": "string",
                         "description": "Yeni kategori adı. Kullanıcının yazdığı değeri aynen al."
+                    },
+                    "newparentname": {
+                        "type": "string",
+                        "description": "Yeni üst kategori adı. Kullanıcının yazdığı değeri aynen al."
                     }
                 },
                 "required": [
@@ -289,7 +293,7 @@
             }
         },
         {
-            "name": "deleteـcategory",
+            "name": "delete_category",
             "description": "Mevcut kategori hesabını sistemden siler.",
             "parameters": {
                 "type": "object",
@@ -329,27 +333,6 @@
             }
         },
         {
-            "name": "change_category_parent",
-            "description": "Mevcut bir kategorinin üst kategorisini değiştirmek veya kategoriyi başka bir üst kategoriye taşımak için kullanılır.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "Üst kategorisi değiştirilecek mevcut kategorinin adı. Kullanıcının belirttiği kategori adını aynen al."
-                    },
-                    "parentname": {
-                        "type": "string",
-                        "description": "Kategorinin bağlanacağı yeni üst kategorinin adı. Kullanıcının belirttiği üst kategori adını aynen al."
-                    }
-                },
-                "required": [
-                    "name",
-                    "parentname"
-                ]
-            }
-        },
-        {
             "name": "create_item_unit",
             "description": "Yeni bir ürün birimi oluşturur. Sisteme yeni bir ölçü veya ürün birimi eklemek için kullanılır. Kullanıcının belirttiği birim adını sisteme yeni bir birim olarak kaydetme isteklerini ifade eder.",
             "parameters": {
@@ -358,26 +341,6 @@
                     "title": {
                         "type": "string",
                         "description": "Oluşturulacak yeni ürün biriminin adı. Kullanıcının belirttiği birim adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama. Çevreleyen kelimeleri parametreye dahil etme."
-                    }
-                },
-                "required": [
-                    "title"
-                ]
-            }
-        },
-        {
-            "name": "update_item_unit",
-            "description": "Mevcut rol bilgilerini günceller. Rol adını değiştirmek veya rol bilgilerini düzenlemek için kullanılır.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "title": {
-                        "type": "string",
-                        "description": "Mevcut rol adı. Kullanıcının yazdığı değeri aynen al."
-                    },
-                    "newtitle": {
-                        "type": "string",
-                        "description": "Yeni rol adı. Kullanıcının yazdığı değeri aynen al."
                     }
                 },
                 "required": [
@@ -406,12 +369,28 @@
             }
         },
         {
+            "name": "delete_item_unit",
+            "description": "Mevcut bir ürün birimini sistemden siler. Kullanıcının mevcut bir ürün birimini silme veya kaldırma isteğini ifade eder.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Silinecek mevcut ürün biriminin adı. Kullanıcının belirttiği mevcut birim adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            }
+        },
+        {
             "name": "update_item_unit_record_status",
             "description": "Mevcut bir ürün biriminin kayıt durumunu günceller. Birim aktif hale getirmek, pasif yapmak, devre dışı bırakmak veya tekrar aktif etmek için kullanılır.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "title": {
+                    "name": {
                         "type": "string",
                         "description": "Durumu değiştirilecek mevcut ürün biriminin adı. Kullanıcının belirttiği birim adını aynen al. Çeviri yapma, değiştirme, düzeltme veya yorumlama."
                     },
@@ -425,7 +404,7 @@
                     }
                 },
                 "required": [
-                    "title",
+                    "name",
                     "recordStatus"
                 ]
             }
@@ -841,6 +820,84 @@
                 },
                 "required": [
                     "name",
+                    "recordstatus"
+                ]
+            }
+        },
+        {
+            "name": "create_force_major",
+            "description": "Yeni bir Mücbir Sebep (Force Major) kaydı oluşturur. Sisteme yeni bir Mücbir Sebep eklemek için kullanılır.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Oluşturulacak Mücbir Sebep kaydının başlığı. Kullanıcının yazdığı değeri aynen al. Çeviri yapma, değiştirme veya yorumlama."
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            }
+        },
+        {
+            "name": "update_force_major",
+            "description": "Mevcut bir Mücbir Sebep (Force Major) kaydının adını veya başlığını günceller.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Güncellenecek mevcut Mücbir Sebep kaydının adı veya başlığı. Kullanıcının yazdığı değeri aynen al. Çeviri yapma, değiştirme veya yorumlama."
+                    },
+                    "newtitle": {
+                        "type": "string",
+                        "description": "Mevcut Mücbir Sebep kaydı için belirlenecek yeni ad veya başlık. Kullanıcının yazdığı değeri aynen al. Çeviri yapma, değiştirme veya yorumlama."
+                    }
+                },
+                "required": [
+                    "title",
+                    "newtitle"
+                ]
+            }
+        },
+        {
+            "name": "delete_force_major",
+            "description": "Mevcut bir Mücbir Sebep (Force Major) kaydını sistemden siler.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Silinecek mevcut Mücbir Sebep kaydının adı veya başlığı. Kullanıcının yazdığı değeri aynen al. Çeviri yapma, değiştirme veya yorumlama."
+                    }
+                },
+                "required": [
+                    "title"
+                ]
+            }
+        },
+        {
+            "name": "update_force_major_record_status",
+            "description": "Bir Mücbir Sebep (Force Major) kaydının aktif veya pasif durumunu değiştirir.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "description": "Mücbir Sebep kaydının adı veya başlığı. Kullanıcının yazdığı değeri aynen al. Çeviri yapma, değiştirme veya yorumlama."
+                    },
+                    "recordstatus": {
+                        "type": "integer",
+                        "enum": [
+                            0,
+                            1
+                        ],
+                        "description": "Mücbir Sebep kaydının durumu. Aktif için 0, pasif için 1."
+                    }
+                },
+                "required": [
+                    "title",
                     "recordstatus"
                 ]
             }
